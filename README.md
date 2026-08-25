@@ -10,7 +10,7 @@ Swara Flow turns foundational exercises into a focused visual practice room. Cho
 - Adjustable tonic and tempo
 - Explicit Mayamalavagowla swaras and intervals for the starter exercises
 - Browser-based Web Audio playback with compact local samples and no backend
-- Selectable sampled flute, sustained vocal, or synthesized tone playback
+- Selectable sampled flute or synthesized tone playback
 - Animated note-by-note practice guidance
 - Responsive interface for desktop and mobile
 
@@ -43,10 +43,9 @@ This keeps future raga catalogs, sampled instruments, tala engines, and persiste
 ### Included instruments
 
 - **Flute:** four University of Iowa concert-flute anchors; the closest recording is pitch-adjusted for each swara.
-- **Vocal · aa:** four MIT-licensed Vocobox human-voice anchors used as a temporary sustained-vowel voice.
 - **Simple tone:** the original generated sine tone, retained as a dependency-free fallback.
 
-See [`public/audio/LICENSES.md`](public/audio/LICENSES.md) for recording sources and redistribution terms. The included flute is a Western concert flute and the vocal is not a Carnatic singer; both are replaceable adapters until dedicated Carnatic recordings are available.
+See [`public/audio/LICENSES.md`](public/audio/LICENSES.md) for recording sources and redistribution terms. The included flute is a Western concert flute and remains a replaceable adapter until dedicated Carnatic recordings are available. Vocal playback is intentionally deferred until suitable Carnatic recordings are available.
 
 ## Quality checks
 

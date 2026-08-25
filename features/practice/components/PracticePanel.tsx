@@ -1,6 +1,7 @@
 import { TONIC_OPTIONS } from "../domain/catalog";
 import { INSTRUMENTS, type InstrumentId } from "../audio/instruments";
 import type { Exercise, ScaleDefinition, TonicOption } from "../domain/types";
+import { ExerciseNotation } from "./ExerciseNotation";
 
 type Props = Readonly<{
   exercise: Exercise;
@@ -49,19 +50,7 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
         </div>
       </div>
 
-      <div className="notation" aria-label={`${exercise.title} notation`}>
-        {exercise.sequence.map((swara, index) => (
-          <button
-            className={activeIndex === index ? "current" : activeIndex > index ? "passed" : ""}
-            key={`${swara}-${index}`}
-            onClick={() => onPlayTone(index)}
-            aria-label={`Play ${swara}`}
-            aria-current={activeIndex === index ? "step" : undefined}
-          >
-            <span>{swara}</span><i aria-hidden="true" />
-          </button>
-        ))}
-      </div>
+      <ExerciseNotation exercise={exercise} activeIndex={activeIndex} onPlayTone={onPlayTone} />
 
       <div className="transport">
         <button className="restart" onClick={onStop} aria-label="Restart">↺</button>

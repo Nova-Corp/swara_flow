@@ -16,6 +16,10 @@ export type Exercise = Readonly<{
   description: string;
   scaleId: ScaleDefinition["id"];
   sequence: readonly Swara[];
+  visualization?: Readonly<{
+    kind: "pyramid";
+    rows: readonly number[];
+  }>;
 }>;
 
 export type TonicOption = Readonly<{

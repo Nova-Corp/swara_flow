@@ -21,7 +21,7 @@ const definitions = [
   { id: "sarali-2", category: "Sarali", title: "Sarali Varisai 2", description: "Focus on Ri ascending and Ni descending, followed by complete scale phrases.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "R₁", "S", "R₁", "S", "R₁", "G₃", "M₁", "S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ", "Ṡ", "N₃", "Ṡ", "N₃", "Ṡ", "N₃", "D₁", "P", "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S"] },
   { id: "janta-1", category: "Janta", title: "Janta Varisai 1", description: "Paired notes to strengthen breath and articulation.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "S", "R₁", "R₁", "G₃", "G₃", "M₁", "M₁", "P", "P", "D₁", "D₁", "N₃", "N₃", "Ṡ", "Ṡ"] },
   { id: "alankaram-1", category: "Alankaram", title: "Four-note Alankaram", description: "A flowing exercise built from four-note groups.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "R₁", "G₃", "M₁", "R₁", "G₃", "M₁", "P", "G₃", "M₁", "P", "D₁", "M₁", "P", "D₁", "N₃"] },
-  { id: "pyramid-1", category: "Pyramid", title: "Growing pyramid", description: "Add one swara at a time, then return to Sa.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "S", "R₁", "S", "S", "R₁", "G₃", "R₁", "S", "S", "R₁", "G₃", "M₁", "G₃", "R₁", "S"] },
+  { id: "pyramid-1", category: "Pyramid", title: "Growing pyramid", description: "Add one swara at a time, then return to Sa.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "S", "R₁", "S", "S", "R₁", "G₃", "R₁", "S", "S", "R₁", "G₃", "M₁", "G₃", "R₁", "S"], visualization: { kind: "pyramid", rows: [1, 3, 5, 7] } },
 ] as const satisfies readonly Exercise[];
 
 function validateCatalog(items: readonly Exercise[]): readonly Exercise[] {
@@ -32,6 +32,15 @@ function validateCatalog(items: readonly Exercise[]): readonly Exercise[] {
     if (item.sequence.length === 0) throw new Error(`Exercise ${item.id} has no swaras`);
     if (item.scaleId !== MAYAMALAVAGOWLA.id) throw new Error(`Unknown scale for exercise ${item.id}`);
     if (item.sequence.some((swara) => !validSwaras.has(swara))) throw new Error(`Exercise ${item.id} contains an unsupported swara`);
+    if (item.visualization?.kind === "pyramid") {
+      const displayedNotes = item.visualization.rows.reduce((total, rowLength) => total + rowLength, 0);
+      const hasInvalidRows = item.visualization.rows.some((rowLength, index, rows) =>
+        rowLength <= 0 || rowLength % 2 === 0 || (index > 0 && rowLength <= rows[index - 1]),
+      );
+      if (displayedNotes !== item.sequence.length || hasInvalidRows) {
+        throw new Error(`Exercise ${item.id} has an invalid pyramid visualization`);
+      }
+    }
     ids.add(item.id);
   }
   return Object.freeze([...items]);

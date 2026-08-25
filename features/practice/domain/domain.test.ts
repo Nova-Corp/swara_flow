@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { EXERCISES, filterExercises, MAYAMALAVAGOWLA } from "./catalog";
 import { beatDurationMs, frequencyForSwara } from "./music";
 import { selectNearestSample } from "../audio/SampledTonePlayer";
+import { splitPyramidRows } from "../components/ExerciseNotation";
 
 describe("exercise catalog", () => {
   it("contains unique, non-empty exercises tied to the known scale", () => {
@@ -32,6 +33,18 @@ describe("exercise catalog", () => {
       "S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ",
       "Ṡ", "N₃", "Ṡ", "N₃", "Ṡ", "N₃", "D₁", "P",
       "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S",
+    ]);
+  });
+
+  it("defines Growing Pyramid as centered 1–3–5–7 note rows", () => {
+    const pyramid = EXERCISES.find((exercise) => exercise.id === "pyramid-1");
+    expect(pyramid).toBeDefined();
+    expect(pyramid?.visualization).toEqual({ kind: "pyramid", rows: [1, 3, 5, 7] });
+    expect(splitPyramidRows(pyramid!).map((row) => row.map((note) => note.swara))).toEqual([
+      ["S"],
+      ["S", "R₁", "S"],
+      ["S", "R₁", "G₃", "R₁", "S"],
+      ["S", "R₁", "G₃", "M₁", "G₃", "R₁", "S"],
     ]);
   });
 });

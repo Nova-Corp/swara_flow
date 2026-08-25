@@ -72,6 +72,11 @@ h1 { font-size: clamp(58px, 7.2vw, 104px); line-height: .88; }
 .notation button:nth-child(8n) i, .notation button:last-child i { display: none; }
 .notation button.current span { transform: scale(1.18); background: var(--lime); border-color: var(--ink); box-shadow: 0 0 0 7px rgba(217,244,77,.23); }
 .notation button.passed span { background: var(--ink); color: white; border-color: var(--ink); }
+.pyramidNotation { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+.pyramidRow { display: flex; justify-content: center; gap: clamp(8px, 1.5vw, 20px); width: 100%; }
+.pyramidRow button { flex: 0 0 clamp(42px, 4vw, 58px); }
+.pyramidRow button i { width: calc(100% + clamp(8px, 1.5vw, 20px)); }
+.pyramidRow button:last-child i { display: none; }
 .transport { border-top: 1px solid var(--line); padding-top: 24px; display: flex; align-items: center; gap: 14px; }
 .transport button { cursor: pointer; }
 .restart { border: 1px solid var(--ink); background: transparent; width: 46px; height: 46px; border-radius: 50%; font-size: 20px; }
@@ -101,6 +106,10 @@ footer { padding: 34px 0; display: flex; justify-content: space-between; color: 
   .notation { grid-template-columns: repeat(4, 1fr); padding: 45px 0; }
   .notation button:nth-child(4n) i { display: none; }
   .notation button:nth-child(8n) i { display: none; }
+  .pyramidNotation { gap: 15px; }
+  .pyramidRow { gap: 6px; }
+  .pyramidRow button { flex-basis: 42px; }
+  .pyramidRow button i { width: 48px; }
   .transport p { display: none; }
   footer { display: block; }
 }
