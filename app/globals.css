@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
+
+:root {
+  --ink: #183b35;
+  --muted: #647b75;
+  --paper: #f4f0e7;
+  --panel: #fcfaf4;
+  --line: #d8d6c9;
+  --lime: #d9f44d;
+  --orange: #f07a55;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+}
+button, select, input { font: inherit; }
+button { color: inherit; }
+.shell { min-height: 100vh; padding: 0 4vw; }
+.topbar { height: 84px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.brand { color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: -.03em; font-size: 20px; }
+.brandMark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--lime); font-family: "Instrument Serif", serif; font-size: 24px; }
+.openSource { color: var(--muted); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.hero { min-height: 400px; display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 50px; }
+.eyebrow { margin: 0 0 14px; color: var(--orange); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .15em; }
+h1, h2 { font-family: "Instrument Serif", serif; font-weight: 400; margin: 0; letter-spacing: -.035em; }
+h1 { font-size: clamp(58px, 7.2vw, 104px); line-height: .88; }
+.intro { color: var(--muted); max-width: 560px; font-size: 18px; line-height: 1.6; }
+.heroGlyph { min-height: 220px; display: flex; align-items: center; justify-content: center; }
+.heroGlyph span { width: 72px; height: 72px; border: 1px solid var(--ink); background: var(--panel); border-radius: 50%; display: grid; place-items: center; font-family: "Instrument Serif", serif; font-size: 32px; position: relative; z-index: 1; }
+.heroGlyph span:nth-of-type(2) { transform: translateY(-52px); background: var(--lime); }
+.heroGlyph span:nth-of-type(3) { transform: translateY(34px); background: var(--orange); color: white; border-color: var(--orange); }
+.heroGlyph span:nth-of-type(4) { transform: translateY(-18px); }
+.heroGlyph i { display: block; width: 28px; height: 1px; background: var(--ink); transform: rotate(-32deg); }
+.workspace { display: grid; grid-template-columns: minmax(290px, .72fr) 1.55fr; border: 1px solid var(--ink); border-radius: 20px; overflow: hidden; background: var(--panel); box-shadow: 0 20px 60px rgba(24, 59, 53, .08); }
+.library { padding: 28px; border-right: 1px solid var(--ink); background: #eeebdf; }
+.sectionHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sectionHeading p { font-family: "Instrument Serif", serif; font-size: 26px; margin: 0; }
+.sectionHeading span { color: var(--muted); font-size: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 7px; margin: 24px 0; }
+.filters button { border: 1px solid var(--line); border-radius: 999px; background: transparent; padding: 7px 11px; font-size: 11px; cursor: pointer; }
+.filters button.active { background: var(--ink); color: white; border-color: var(--ink); }
+.exerciseList { display: grid; gap: 9px; }
+.exerciseCard { width: 100%; border: 1px solid transparent; background: transparent; text-align: left; display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: start; border-radius: 12px; padding: 13px 10px; cursor: pointer; }
+.exerciseCard:hover { border-color: var(--line); }
+.exerciseCard.selected { background: var(--panel); border-color: var(--ink); }
+.exerciseNumber { color: var(--orange); font-size: 11px; padding-top: 3px; }
+.exerciseCard strong, .exerciseCard small { display: block; }
+.exerciseCard strong { font-size: 14px; margin-bottom: 5px; }
+.exerciseCard small { color: var(--muted); line-height: 1.35; }
+.arrow { opacity: 0; }
+.exerciseCard.selected .arrow { opacity: 1; }
+.practicePanel { min-width: 0; padding: clamp(28px, 4vw, 64px); display: flex; flex-direction: column; }
+.practiceHeader { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+.practiceHeader h2 { font-size: clamp(44px, 5vw, 72px); }
+.practiceHeader > div > p:last-child { color: var(--muted); }
+.settings { display: grid; gap: 18px; min-width: 180px; }
+.settings label { color: var(--muted); display: grid; gap: 7px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
+.settings select { background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 6px 0; color: var(--ink); }
+.settings label span { display: flex; align-items: center; gap: 8px; }
+.settings input { width: 120px; accent-color: var(--orange); }
+.settings b { color: var(--ink); min-width: 28px; }
+.notation { flex: 1; min-height: 300px; padding: 64px 0; display: grid; grid-template-columns: repeat(8, minmax(42px, 1fr)); align-content: center; row-gap: 45px; }
+.notation button { border: 0; padding: 0; background: transparent; display: grid; place-items: center; cursor: pointer; position: relative; }
+.notation button span { width: clamp(42px, 4vw, 58px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); font-family: "Instrument Serif", serif; font-size: 24px; transition: .2s ease; position: relative; z-index: 2; }
+.notation button i { position: absolute; width: 100%; height: 1px; background: var(--line); left: 50%; }
+.notation button:nth-child(8n) i, .notation button:last-child i { display: none; }
+.notation button.current span { transform: scale(1.18); background: var(--lime); border-color: var(--ink); box-shadow: 0 0 0 7px rgba(217,244,77,.23); }
+.notation button.passed span { background: var(--ink); color: white; border-color: var(--ink); }
+.transport { border-top: 1px solid var(--line); padding-top: 24px; display: flex; align-items: center; gap: 14px; }
+.transport button { cursor: pointer; }
+.restart { border: 1px solid var(--ink); background: transparent; width: 46px; height: 46px; border-radius: 50%; font-size: 20px; }
+.play { border: 0; background: var(--ink); color: white; border-radius: 999px; padding: 14px 19px 14px 22px; display: flex; gap: 30px; align-items: center; }
+.play span { color: var(--lime); }
+.transport p { color: var(--muted); font-size: 12px; margin-left: auto; }
+footer { padding: 34px 0; display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 70px 0 40px; }
+  .heroGlyph { display: none; }
+  .workspace { grid-template-columns: 1fr; }
+  .library { border-right: 0; border-bottom: 1px solid var(--ink); }
+  .exerciseList { grid-template-columns: repeat(2, 1fr); }
+  .practiceHeader { grid-template-columns: 1fr; }
+  .settings { grid-template-columns: 100px 1fr; }
+}
+
+@media (max-width: 580px) {
+  .shell { padding: 0 18px; }
+  .openSource { display: none; }
+  .hero { min-height: 330px; }
+  h1 { font-size: 57px; }
+  .exerciseList { grid-template-columns: 1fr; }
+  .library, .practicePanel { padding: 22px; }
+  .notation { grid-template-columns: repeat(4, 1fr); padding: 45px 0; }
+  .notation button:nth-child(4n) i { display: none; }
+  .notation button:nth-child(8n) i { display: none; }
+  .transport p { display: none; }
+  footer { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
