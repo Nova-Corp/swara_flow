@@ -22,7 +22,7 @@ export default function Home() {
           <p className="intro">A quiet, focused space to build shruti, clarity and confidence through everyday Carnatic practice.</p>
           <div className="heroActions">
             <a className="primaryAction" href="#practice">Begin practice <span aria-hidden="true">↓</span></a>
-            <p><strong>5</strong> guided patterns <i /> <strong>2</strong> instruments</p>
+            <p><strong>14</strong> verified lessons <i /> <strong>2</strong> instruments</p>
           </div>
         </div>
         <div className="heroVisual" aria-hidden="true">

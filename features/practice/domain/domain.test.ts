@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EXERCISES, filterExercises, MAYAMALAVAGOWLA } from "./catalog";
+import { EXERCISES, filterExercises, getExerciseById, MAYAMALAVAGOWLA } from "./catalog";
 import { beatDurationMs, frequencyForSwara } from "./music";
 import { selectNearestSample } from "../audio/SampledTonePlayer";
 import { splitPyramidRows } from "../components/ExerciseNotation";
@@ -34,6 +34,41 @@ describe("exercise catalog", () => {
       "Ṡ", "N₃", "Ṡ", "N₃", "Ṡ", "N₃", "D₁", "P",
       "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S",
     ]);
+  });
+
+  it("contains the complete verified 14-exercise Sarali curriculum", () => {
+    const sarali = filterExercises("Sarali");
+    expect(sarali).toHaveLength(14);
+    expect(sarali.map((exercise) => exercise.id)).toEqual(Array.from({ length: 14 }, (_, index) => `sarali-${index + 1}`));
+    expect(sarali.every((exercise) => exercise.status === "verified")).toBe(true);
+  });
+
+  it("preserves the canonical eight-beat phrases and sustained beats", () => {
+    const symbol = { S: "s", "R₁": "r", "G₃": "g", "M₁": "m", P: "p", "D₁": "d", "N₃": "n", "Ṡ": "S" } as const;
+    const expected = [
+      "srgmpdnS Sndpmgrs",
+      "srsrsrgm srgmpdnS SnSnSndp Sndpmgrs",
+      "srgsrgsr srgmpdnS SndSndSn Sndpmgrs",
+      "srgmsrgm srgmpdnS SndpSndp Sndpmgrs",
+      "srgmp-sr srgmpdnS Sndpm-Sn Sndpmgrs",
+      "srgmpdsr srgmpdnS SndpmgSn Sndpmgrs",
+      "srgmpdn- srgmpdnS Sndpmgr- Sndpmgrs",
+      "srgmpmgr srgmpdnS Sndpmpdn Sndpmgrs",
+      "srgmpmdp srgmpdnS Sndpmpgm Sndpmgrs",
+      "srgmp-gm p---p--- gmpdndpm gmpgmgrs",
+      "S-ndn-dp d-pmp-p- gmpdndpm gmpgmgrs",
+      "SSndnndp ddpmp-p- gmpdndpm gmpgmgrs",
+      "srgrg-gm pmp-dpd- mpdpdndp mpdpmgrs",
+      "srgmp-p- ddp-mmp- dnS-Sndp Sndpmgrs",
+    ];
+
+    expect(expected.map((_, exerciseIndex) => {
+      const exercise = getExerciseById(`sarali-${exerciseIndex + 1}`);
+      const sustained = new Set(exercise.sustainAt);
+      return exercise.sequence
+        .map((swara, index) => sustained.has(index) ? "-" : symbol[swara])
+        .reduce((notation, token, index) => notation + (index > 0 && index % 8 === 0 ? ` ${token}` : token), "");
+    })).toEqual(expected);
   });
 
   it("defines Growing Pyramid as centered 1–3–5–7 note rows", () => {

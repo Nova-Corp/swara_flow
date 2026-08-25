@@ -47,6 +47,10 @@ This keeps future raga catalogs, sampled instruments, tala engines, and persiste
 
 See [`public/audio/LICENSES.md`](public/audio/LICENSES.md) for recording sources and redistribution terms. The included flute is a Western concert flute and remains a replaceable adapter until dedicated Carnatic recordings are available. Vocal playback is intentionally deferred until suitable Carnatic recordings are available.
 
+## Curriculum source
+
+The 14 Sarali Varisai exercises follow the Mayamalavagowla and Adi tala notation published in [Shivkumar Kalyanaraman's Carnatic music basics archive](https://www.shivkumar.org/music/basics/sarali-varisai.htm), which credits Rani, karnatik.com, and Chitravina N. Ravikiran's teaching material. A dash in the app represents a sustained beat.
+
 ## Quality checks
 
 ```bash

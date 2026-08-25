@@ -112,6 +112,8 @@ h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 
 .notation button:nth-child(8n) i, .notation button:last-child i { display: none; }
 .notation button.current span { transform: scale(1.16); background: var(--saffron); border-color: var(--night); box-shadow: 0 0 0 8px rgba(240,164,59,.18), 0 10px 24px rgba(37,33,57,.15); }
 .notation button.passed span { background: var(--night); color: white; border-color: var(--night); }
+.notation button.sustain span { border-style: dashed; color: var(--muted); font-family: var(--sans); font-size: 18px; }
+.notation button.sustain.current span, .notation button.sustain.passed span { color: var(--night); background: var(--saffron); }
 .pyramidNotation { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
 .pyramidRow { display: flex; justify-content: center; gap: clamp(8px, 1.5vw, 20px); width: 100%; }
 .pyramidRow button { flex: 0 0 clamp(42px, 4vw, 58px); }

@@ -43,22 +43,26 @@ export function useExercisePlayer({ exercise, bpm, tonicHz, createTonePlayer }: 
     setActiveIndex(-1);
   }, [clearTimer]);
 
-  const playToneAt = useCallback(async (index: number) => {
+  const playTone = useCallback(async (index: number, durationSeconds: number) => {
     const swara = exercise.sequence[index];
     if (!swara) return;
     setActiveIndex(index);
     setAudioError(null);
     setIsLoadingAudio(true);
     try {
-      const noteSeconds = Math.min(0.65, (beatDurationMs(bpm) / 1000) * 0.78);
-      await getTonePlayer().play(frequencyForSwara(swara, tonicHz), noteSeconds);
+      await getTonePlayer().play(frequencyForSwara(swara, tonicHz), durationSeconds);
     } catch (error) {
       setAudioError(error instanceof Error ? error.message : "Audio playback failed");
       stop();
     } finally {
       setIsLoadingAudio(false);
     }
-  }, [bpm, exercise.sequence, getTonePlayer, stop, tonicHz]);
+  }, [exercise.sequence, getTonePlayer, stop, tonicHz]);
+
+  const playToneAt = useCallback(async (index: number) => {
+    const noteSeconds = Math.min(0.65, (beatDurationMs(bpm) / 1000) * 0.78);
+    await playTone(index, noteSeconds);
+  }, [bpm, playTone]);
 
   const play = useCallback(() => {
     stop();
@@ -73,12 +77,19 @@ export function useExercisePlayer({ exercise, bpm, tonicHz, createTonePlayer }: 
         setActiveIndex(-1);
         return;
       }
-      await playToneAt(index);
+      const isSustain = exercise.sustainAt?.includes(index) ?? false;
+      if (isSustain) {
+        setActiveIndex(index);
+      } else {
+        let heldBeats = 0;
+        while (exercise.sustainAt?.includes(index + heldBeats + 1)) heldBeats += 1;
+        await playTone(index, (beatMs / 1000) * (heldBeats + 1) * 0.9);
+      }
       if (runVersion !== runVersionRef.current) return;
       timerRef.current = setTimeout(() => void step(index + 1), beatMs);
     };
     void step(0);
-  }, [bpm, exercise.sequence.length, playToneAt, stop]);
+  }, [bpm, exercise.sequence.length, exercise.sustainAt, playTone, stop]);
 
   useEffect(() => stop(), [exercise.id, stop]);
   useEffect(() => {

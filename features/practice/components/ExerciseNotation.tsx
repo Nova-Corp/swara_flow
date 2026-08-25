@@ -21,15 +21,15 @@ export function splitPyramidRows(exercise: Exercise): readonly IndexedSwara[][] 
   });
 }
 
-function SwaraButton({ note, activeIndex, onPlayTone }: Readonly<{ note: IndexedSwara; activeIndex: number; onPlayTone: (index: number) => void }>) {
+function SwaraButton({ note, activeIndex, onPlayTone, isSustain = false }: Readonly<{ note: IndexedSwara; activeIndex: number; onPlayTone: (index: number) => void; isSustain?: boolean }>) {
   return (
     <button
-      className={activeIndex === note.index ? "current" : activeIndex > note.index ? "passed" : ""}
+      className={`${activeIndex === note.index ? "current" : activeIndex > note.index ? "passed" : ""} ${isSustain ? "sustain" : ""}`}
       onClick={() => onPlayTone(note.index)}
-      aria-label={`Play ${note.swara}`}
+      aria-label={isSustain ? `Hold ${note.swara}` : `Play ${note.swara}`}
       aria-current={activeIndex === note.index ? "step" : undefined}
     >
-      <span>{note.swara}</span><i aria-hidden="true" />
+      <span>{isSustain ? "—" : note.swara}</span><i aria-hidden="true" />
     </button>
   );
 }
@@ -52,7 +52,7 @@ export function ExerciseNotation({ exercise, activeIndex, onPlayTone }: Props) {
   return (
     <div className="notation" aria-label={`${exercise.title} notation`}>
       {exercise.sequence.map((swara, index) => (
-        <SwaraButton key={`${swara}-${index}`} note={{ swara, index }} activeIndex={activeIndex} onPlayTone={onPlayTone} />
+        <SwaraButton key={`${swara}-${index}`} note={{ swara, index }} activeIndex={activeIndex} onPlayTone={onPlayTone} isSustain={exercise.sustainAt?.includes(index)} />
       ))}
     </div>
   );

@@ -29,7 +29,7 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
           <p className="nowPlaying"><span aria-hidden="true" /> Now practising</p>
           <h2>{exercise.title}</h2>
           <p>{exercise.description}</p>
-          <div className="exerciseMeta"><span>{exercise.category}</span><span>{scale.name}</span><span>{exercise.sequence.length} swaras</span></div>
+          <div className="exerciseMeta"><span>{exercise.status === "verified" ? "Verified curriculum" : "Prototype"}</span><span>{exercise.category}</span><span>{scale.name}</span><span>{exercise.sequence.length} beats</span></div>
         </div>
         <div className="settings">
           <label>Instrument

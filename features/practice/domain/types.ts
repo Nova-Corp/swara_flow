@@ -12,10 +12,12 @@ export type ScaleDefinition = Readonly<{
 export type Exercise = Readonly<{
   id: string;
   category: ExerciseCategory;
+  status: "verified" | "prototype";
   title: string;
   description: string;
   scaleId: ScaleDefinition["id"];
   sequence: readonly Swara[];
+  sustainAt?: readonly number[];
   visualization?: Readonly<{
     kind: "pyramid";
     rows: readonly number[];
