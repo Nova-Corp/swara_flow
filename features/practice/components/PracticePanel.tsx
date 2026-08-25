@@ -53,7 +53,7 @@ export function PracticePanel({ exercise, scale, ragas, tonic, tempo, activeInde
                 <strong>Practice settings</strong>
                 <small>{scale.name} · {instrumentName} · Sa {tonic.label} · {tempo} BPM</small>
               </span>
-              <span className="settingsChevron" aria-hidden="true">⌄</span>
+              <span className="settingsChevron" aria-hidden="true" />
             </summary>
             <div className="settingsPanel">
             {exercise.category === "Sarali" && <label className="ragaSetting"><span className="settingLabel">Raga</span>
@@ -106,7 +106,6 @@ export function PracticePanel({ exercise, scale, ragas, tonic, tempo, activeInde
           {isFullscreenSupported && (
             <button className="fullscreenButton" type="button" onClick={onFullscreenToggle} aria-label={isFullscreen ? "Exit full screen" : "Enter full screen"} title={isFullscreen ? "Exit full screen" : "Full screen"}>
               <span aria-hidden="true">{isFullscreen ? "×" : "⛶"}</span>
-              <small>{isFullscreen ? "Exit" : "Full screen"}</small>
             </button>
           )}
         </div>
