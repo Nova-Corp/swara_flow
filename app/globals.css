@@ -77,6 +77,7 @@ h1 { font-size: clamp(58px, 7.2vw, 104px); line-height: .88; }
 .play { border: 0; background: var(--ink); color: white; border-radius: 999px; padding: 14px 19px 14px 22px; display: flex; gap: 30px; align-items: center; }
 .play span { color: var(--lime); }
 .transport p { color: var(--muted); font-size: 12px; margin-left: auto; }
+.audioStatus { min-height: 18px; margin: 8px 0 0; color: #a43b2a; font-size: 12px; text-align: right; }
 footer { padding: 34px 0; display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
 
 @media (max-width: 900px) {

@@ -26,6 +26,26 @@ Open [http://localhost:3000](http://localhost:3000).
 
 The first release deliberately stays small: structured practice data, audio, and visual guidance. Good next additions are multiple speeds, tala/metronome support, exercise authoring, flute fingering hints, and saved practice progress.
 
+## Architecture
+
+The interactive practice experience lives in `features/practice` and is split by responsibility:
+
+- `domain/` contains typed musical concepts, validated exercise data, and pure calculations.
+- `audio/` defines a replaceable playback contract and the browser Web Audio implementation.
+- `hooks/` owns playback scheduling and lifecycle cleanup.
+- `components/` contains the practice feature's focused UI pieces.
+- `app/` remains the thin Next.js route and static page shell.
+
+This keeps future raga catalogs, sampled instruments, tala engines, and persistence adapters independent from the UI.
+
+## Quality checks
+
+```bash
+npm run typecheck
+npm test
+npm run build
+```
+
 ## License
 
 A license has not been selected yet. Add one before accepting external contributions.
