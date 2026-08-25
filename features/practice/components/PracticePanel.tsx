@@ -1,4 +1,5 @@
 import { TONIC_OPTIONS } from "../domain/catalog";
+import { INSTRUMENTS, type InstrumentId } from "../audio/instruments";
 import type { Exercise, ScaleDefinition, TonicOption } from "../domain/types";
 
 type Props = Readonly<{
@@ -9,6 +10,9 @@ type Props = Readonly<{
   activeIndex: number;
   isPlaying: boolean;
   audioError: string | null;
+  instrument: InstrumentId;
+  isLoadingAudio: boolean;
+  onInstrumentChange: (instrument: InstrumentId) => void;
   onTonicChange: (tonic: TonicOption) => void;
   onTempoChange: (tempo: number) => void;
   onPlayTone: (index: number) => void;
@@ -16,7 +20,7 @@ type Props = Readonly<{
   onStop: () => void;
 }>;
 
-export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPlaying, audioError, onTonicChange, onTempoChange, onPlayTone, onPlay, onStop }: Props) {
+export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, onInstrumentChange, onTonicChange, onTempoChange, onPlayTone, onPlay, onStop }: Props) {
   return (
     <div className="practicePanel">
       <div className="practiceHeader">
@@ -26,6 +30,11 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
           <p>{exercise.description}</p>
         </div>
         <div className="settings">
+          <label>Voice
+            <select value={instrument} onChange={(event) => onInstrumentChange(event.target.value as InstrumentId)}>
+              {INSTRUMENTS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
+            </select>
+          </label>
           <label>Sa
             <select value={tonic.label} onChange={(event) => onTonicChange(TONIC_OPTIONS.find((item) => item.label === event.target.value) ?? TONIC_OPTIONS[0])}>
               {TONIC_OPTIONS.map((item) => <option key={item.label}>{item.label}</option>)}
@@ -61,7 +70,9 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
         </button>
         <p>Tap any swara to hear it</p>
       </div>
-      <p className="audioStatus" role="status" aria-live="polite">{audioError ?? ""}</p>
+      <p className="audioStatus" role="status" aria-live="polite">
+        {audioError ?? (isLoadingAudio ? "Preparing instrument…" : "")}
+      </p>
     </div>
   );
 }

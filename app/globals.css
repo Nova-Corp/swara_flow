@@ -58,7 +58,8 @@ h1 { font-size: clamp(58px, 7.2vw, 104px); line-height: .88; }
 .practiceHeader { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
 .practiceHeader h2 { font-size: clamp(44px, 5vw, 72px); }
 .practiceHeader > div > p:last-child { color: var(--muted); }
-.settings { display: grid; gap: 18px; min-width: 180px; }
+.settings { display: grid; grid-template-columns: repeat(2, minmax(90px, 1fr)); gap: 18px; min-width: 270px; }
+.settings label:last-child { grid-column: 1 / -1; }
 .settings label { color: var(--muted); display: grid; gap: 7px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
 .settings select { background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 6px 0; color: var(--ink); }
 .settings label span { display: flex; align-items: center; gap: 8px; }
@@ -87,7 +88,7 @@ footer { padding: 34px 0; display: flex; justify-content: space-between; color: 
   .library { border-right: 0; border-bottom: 1px solid var(--ink); }
   .exerciseList { grid-template-columns: repeat(2, 1fr); }
   .practiceHeader { grid-template-columns: 1fr; }
-  .settings { grid-template-columns: 100px 1fr; }
+  .settings { grid-template-columns: repeat(2, minmax(100px, 1fr)); }
 }
 
 @media (max-width: 580px) {

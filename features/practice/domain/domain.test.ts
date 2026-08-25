@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { EXERCISES, filterExercises, MAYAMALAVAGOWLA } from "./catalog";
 import { beatDurationMs, frequencyForSwara } from "./music";
+import { selectNearestSample } from "../audio/SampledTonePlayer";
 
 describe("exercise catalog", () => {
   it("contains unique, non-empty exercises tied to the known scale", () => {
@@ -16,6 +17,23 @@ describe("exercise catalog", () => {
     expect(sarali.length).toBeGreaterThan(0);
     expect(sarali.every((exercise) => exercise.category === "Sarali")).toBe(true);
     expect(filterExercises("All")).toBe(EXERCISES);
+  });
+});
+
+describe("sample selection", () => {
+  const samples = [
+    { url: "/C4.wav", frequencyHz: 261.63 },
+    { url: "/G4.wav", frequencyHz: 392 },
+    { url: "/C5.wav", frequencyHz: 523.25 },
+  ] as const;
+
+  it("selects the nearest pitch anchor on a logarithmic scale", () => {
+    expect(selectNearestSample(samples, 440).url).toBe("/G4.wav");
+    expect(selectNearestSample(samples, 520).url).toBe("/C5.wav");
+  });
+
+  it("rejects an empty sample manifest", () => {
+    expect(() => selectNearestSample([], 440)).toThrow("at least one sample");
   });
 });
 

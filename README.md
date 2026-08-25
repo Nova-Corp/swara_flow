@@ -9,7 +9,8 @@ Swara Flow turns foundational exercises into a focused visual practice room. Cho
 - Sarali Varisai, Janta Varisai, Alankaram, and pyramid exercise categories
 - Adjustable tonic and tempo
 - Explicit Mayamalavagowla swaras and intervals for the starter exercises
-- Browser-based swara playback with no audio files or backend
+- Browser-based Web Audio playback with compact local samples and no backend
+- Selectable sampled flute, sustained vocal, or synthesized tone playback
 - Animated note-by-note practice guidance
 - Responsive interface for desktop and mobile
 
@@ -32,11 +33,20 @@ The interactive practice experience lives in `features/practice` and is split by
 
 - `domain/` contains typed musical concepts, validated exercise data, and pure calculations.
 - `audio/` defines a replaceable playback contract and the browser Web Audio implementation.
+- `public/audio/` contains compact locally served sample anchors and their complete provenance.
 - `hooks/` owns playback scheduling and lifecycle cleanup.
 - `components/` contains the practice feature's focused UI pieces.
 - `app/` remains the thin Next.js route and static page shell.
 
 This keeps future raga catalogs, sampled instruments, tala engines, and persistence adapters independent from the UI.
+
+### Included instruments
+
+- **Flute:** four University of Iowa concert-flute anchors; the closest recording is pitch-adjusted for each swara.
+- **Vocal · aa:** four MIT-licensed Vocobox human-voice anchors used as a temporary sustained-vowel voice.
+- **Simple tone:** the original generated sine tone, retained as a dependency-free fallback.
+
+See [`public/audio/LICENSES.md`](public/audio/LICENSES.md) for recording sources and redistribution terms. The included flute is a Western concert flute and the vocal is not a Carnatic singer; both are replaceable adapters until dedicated Carnatic recordings are available.
 
 ## Quality checks
 

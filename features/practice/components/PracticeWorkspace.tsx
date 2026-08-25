@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { TONE_PLAYER_FACTORIES, type InstrumentId } from "../audio/instruments";
 import { EXERCISES, filterExercises, getExerciseById, MAYAMALAVAGOWLA, TONIC_OPTIONS } from "../domain/catalog";
 import type { ExerciseFilter } from "../domain/catalog";
 import { useExercisePlayer } from "../hooks/useExercisePlayer";
@@ -12,9 +13,15 @@ export function PracticeWorkspace() {
   const [exerciseId, setExerciseId] = useState(EXERCISES[0].id);
   const [tempo, setTempo] = useState(72);
   const [tonic, setTonic] = useState(TONIC_OPTIONS[0]);
+  const [instrument, setInstrument] = useState<InstrumentId>("flute");
   const filteredExercises = useMemo(() => filterExercises(filter), [filter]);
   const exercise = getExerciseById(exerciseId);
-  const player = useExercisePlayer({ exercise, bpm: tempo, tonicHz: tonic.hz });
+  const player = useExercisePlayer({
+    exercise,
+    bpm: tempo,
+    tonicHz: tonic.hz,
+    createTonePlayer: TONE_PLAYER_FACTORIES[instrument],
+  });
 
   function changeFilter(nextFilter: ExerciseFilter) {
     player.stop();
@@ -39,6 +46,9 @@ export function PracticeWorkspace() {
         activeIndex={player.activeIndex}
         isPlaying={player.isPlaying}
         audioError={player.audioError}
+        instrument={instrument}
+        isLoadingAudio={player.isLoadingAudio}
+        onInstrumentChange={(nextInstrument) => { player.stop(); setInstrument(nextInstrument); }}
         onTonicChange={(nextTonic) => { player.stop(); setTonic(nextTonic); }}
         onTempoChange={(nextTempo) => { player.stop(); setTempo(nextTempo); }}
         onPlayTone={(index) => { player.stop(); void player.playToneAt(index); }}
