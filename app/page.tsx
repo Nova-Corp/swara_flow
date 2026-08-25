@@ -1,8 +1,39 @@
 import { PracticeWorkspace } from "../features/practice/components/PracticeWorkspace";
+import { absoluteUrl } from "../lib/site";
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
+        url: absoluteUrl("/"),
+        name: "Swara Flow",
+        description: "Free online Carnatic music practice for beginners.",
+        inLanguage: "en-IN",
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": absoluteUrl("/#application"),
+        name: "Swara Flow",
+        url: absoluteUrl("/"),
+        image: absoluteUrl("/og.png"),
+        description: "An interactive practice room with 14 verified Sarali Varisai lessons in Mayamalavagowla.",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Any",
+        browserRequirements: "Requires a modern web browser with Web Audio support.",
+        isAccessibleForFree: true,
+        inLanguage: "en-IN",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        featureList: ["14 verified Sarali Varisai lessons", "Mayamalavagowla swara playback", "Adjustable tonic and tempo", "Flute and synthesized tone"],
+      },
+    ],
+  };
+
   return (
     <main className="shell">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <header className="topbar">
         <a className="brand" href="#top" aria-label="Swara Flow home">
           <span className="brandMark" aria-hidden="true"><i />S</span>
@@ -17,7 +48,7 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="heroCopy">
-          <p className="eyebrow"><span aria-hidden="true">✦</span> Your digital riyaz companion</p>
+          <p className="eyebrow"><span aria-hidden="true">✦</span> Carnatic music practice for beginners</p>
           <h1>Feel every <em>swara.</em><br />Find your flow.</h1>
           <p className="intro">A quiet, focused space to build shruti, clarity and confidence through everyday Carnatic practice.</p>
           <div className="heroActions">
