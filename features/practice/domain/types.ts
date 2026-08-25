@@ -1,4 +1,4 @@
-export const SWARAS = ["S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ"] as const;
+export const SWARAS = ["S", "R₁", "R₂", "G₃", "M₁", "P", "D₁", "D₂", "N₂", "N₃", "Ṡ"] as const;
 
 export type Swara = (typeof SWARAS)[number];
 export type ExerciseCategory = "Sarali" | "Janta" | "Alankaram" | "Pyramid";
@@ -6,7 +6,8 @@ export type ExerciseCategory = "Sarali" | "Janta" | "Alankaram" | "Pyramid";
 export type ScaleDefinition = Readonly<{
   id: string;
   name: string;
-  semitones: Readonly<Record<Swara, number>>;
+  ascending: readonly Swara[];
+  semitones: Readonly<Partial<Record<Swara, number>>>;
 }>;
 
 export type Exercise = Readonly<{

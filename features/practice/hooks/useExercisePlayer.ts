@@ -4,18 +4,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { TonePlayer, TonePlayerFactory } from "../audio/TonePlayer";
 import { WebAudioTonePlayer } from "../audio/WebAudioTonePlayer";
 import { beatDurationMs, frequencyForSwara } from "../domain/music";
-import type { Exercise } from "../domain/types";
+import type { Exercise, ScaleDefinition } from "../domain/types";
 
 const createWebAudioPlayer: TonePlayerFactory = () => new WebAudioTonePlayer();
 
 type PlayerOptions = Readonly<{
   exercise: Exercise;
+  scale: ScaleDefinition;
   bpm: number;
   tonicHz: number;
   createTonePlayer?: TonePlayerFactory;
 }>;
 
-export function useExercisePlayer({ exercise, bpm, tonicHz, createTonePlayer }: PlayerOptions) {
+export function useExercisePlayer({ exercise, scale, bpm, tonicHz, createTonePlayer }: PlayerOptions) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioError, setAudioError] = useState<string | null>(null);
@@ -50,14 +51,14 @@ export function useExercisePlayer({ exercise, bpm, tonicHz, createTonePlayer }: 
     setAudioError(null);
     setIsLoadingAudio(true);
     try {
-      await getTonePlayer().play(frequencyForSwara(swara, tonicHz), durationSeconds);
+      await getTonePlayer().play(frequencyForSwara(swara, tonicHz, scale), durationSeconds);
     } catch (error) {
       setAudioError(error instanceof Error ? error.message : "Audio playback failed");
       stop();
     } finally {
       setIsLoadingAudio(false);
     }
-  }, [exercise.sequence, getTonePlayer, stop, tonicHz]);
+  }, [exercise.sequence, getTonePlayer, scale, stop, tonicHz]);
 
   const playToneAt = useCallback(async (index: number) => {
     const noteSeconds = Math.min(0.65, (beatDurationMs(bpm) / 1000) * 0.78);

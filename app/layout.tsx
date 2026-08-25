@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: SITE_URL,
   title: "Carnatic Music Practice Online | Swara Flow",
-  description: "Practice 14 verified Sarali Varisai lessons in Mayamalavagowla with guided swara playback, adjustable Sa and tempo, and flute or tone.",
+  description: "Practice 14 verified Sarali Varisai lessons in Mayamalavagowla or Harikambhoji with guided swara playback, adjustable Sa and tempo.",
   applicationName: "Swara Flow",
   category: "education",
   creator: "Swara Flow",
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     siteName: "Swara Flow",
     url: "/",
     title: "Carnatic Music Practice Online | Swara Flow",
-    description: "Practice 14 verified Sarali Varisai lessons with guided swara playback, adjustable Sa and tempo.",
+    description: "Practice 14 verified Sarali Varisai lessons in Mayamalavagowla or Harikambhoji with guided swara playback.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Swara Flow — Feel every swara. Find your flow." }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Carnatic Music Practice Online | Swara Flow",
-    description: "Practice 14 verified Sarali Varisai lessons with guided swara playback, adjustable Sa and tempo.",
+    description: "Practice 14 verified Sarali Varisai lessons in Mayamalavagowla or Harikambhoji with guided swara playback.",
     images: ["/og.png"],
   },
 };

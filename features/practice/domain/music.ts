@@ -1,9 +1,11 @@
 import { MAYAMALAVAGOWLA } from "./catalog";
-import { Swara } from "./types";
+import type { ScaleDefinition, Swara } from "./types";
 
-export function frequencyForSwara(swara: Swara, tonicHz: number): number {
+export function frequencyForSwara(swara: Swara, tonicHz: number, scale: ScaleDefinition = MAYAMALAVAGOWLA): number {
   if (!Number.isFinite(tonicHz) || tonicHz <= 0) throw new RangeError("Tonic frequency must be positive");
-  return tonicHz * 2 ** (MAYAMALAVAGOWLA.semitones[swara] / 12);
+  const semitones = scale.semitones[swara];
+  if (semitones === undefined) throw new RangeError(`${swara} is not part of ${scale.name}`);
+  return tonicHz * 2 ** (semitones / 12);
 }
 
 export function beatDurationMs(bpm: number): number {

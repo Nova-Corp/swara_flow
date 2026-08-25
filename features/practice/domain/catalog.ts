@@ -3,11 +3,22 @@ import { Exercise, ExerciseCategory, ScaleDefinition, SWARAS, TonicOption } from
 export const MAYAMALAVAGOWLA: ScaleDefinition = {
   id: "mayamalavagowla",
   name: "Mayamalavagowla",
+  ascending: ["S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ"],
   semitones: { S: 0, "R₁": 1, "G₃": 4, "M₁": 5, P: 7, "D₁": 8, "N₃": 11, "Ṡ": 12 },
 };
 
+export const HARIKAMBHOJI: ScaleDefinition = {
+  id: "harikambhoji",
+  name: "Harikambhoji",
+  ascending: ["S", "R₂", "G₃", "M₁", "P", "D₂", "N₂", "Ṡ"],
+  semitones: { S: 0, "R₂": 2, "G₃": 4, "M₁": 5, P: 7, "D₂": 9, "N₂": 10, "Ṡ": 12 },
+};
+
+export const RAGAS: readonly ScaleDefinition[] = [MAYAMALAVAGOWLA, HARIKAMBHOJI];
+
 export const EXERCISE_CATEGORIES = ["All", "Sarali", "Janta", "Alankaram", "Pyramid"] as const;
 export type ExerciseFilter = "All" | ExerciseCategory;
+export const DEFAULT_EXERCISE_FILTER: ExerciseFilter = "Sarali";
 
 export const TONIC_OPTIONS: readonly TonicOption[] = [
   { label: "C", hz: 261.63 }, { label: "C♯", hz: 277.18 },
@@ -67,4 +78,19 @@ export function getExerciseById(id: string): Exercise {
 }
 export function filterExercises(filter: ExerciseFilter): readonly Exercise[] {
   return filter === "All" ? EXERCISES : EXERCISES.filter((exercise) => exercise.category === filter);
+}
+
+export function getRagaById(id: string): ScaleDefinition {
+  return RAGAS.find((raga) => raga.id === id) ?? MAYAMALAVAGOWLA;
+}
+
+export function adaptExerciseToRaga(exercise: Exercise, raga: ScaleDefinition): Exercise {
+  if (exercise.category !== "Sarali" || raga.id === MAYAMALAVAGOWLA.id) return exercise;
+  const sequence = exercise.sequence.map((swara) => {
+    const degree = MAYAMALAVAGOWLA.ascending.indexOf(swara);
+    const adaptedSwara = raga.ascending[degree];
+    if (degree < 0 || !adaptedSwara) throw new Error(`Cannot adapt ${swara} to ${raga.name}`);
+    return adaptedSwara;
+  });
+  return { ...exercise, scaleId: raga.id, sequence };
 }

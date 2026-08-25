@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EXERCISES, filterExercises, getExerciseById, MAYAMALAVAGOWLA } from "./catalog";
+import { adaptExerciseToRaga, DEFAULT_EXERCISE_FILTER, EXERCISES, filterExercises, getExerciseById, HARIKAMBHOJI, MAYAMALAVAGOWLA, RAGAS } from "./catalog";
 import { beatDurationMs, frequencyForSwara } from "./music";
 import { selectNearestSample } from "../audio/SampledTonePlayer";
 import { splitPyramidRows } from "../components/ExerciseNotation";
@@ -44,7 +44,7 @@ describe("exercise catalog", () => {
   });
 
   it("preserves the canonical eight-beat phrases and sustained beats", () => {
-    const symbol = { S: "s", "R₁": "r", "G₃": "g", "M₁": "m", P: "p", "D₁": "d", "N₃": "n", "Ṡ": "S" } as const;
+    const symbol = { S: "s", "R₁": "r", "R₂": "r", "G₃": "g", "M₁": "m", P: "p", "D₁": "d", "D₂": "d", "N₂": "n", "N₃": "n", "Ṡ": "S" } as const;
     const expected = [
       "srgmpdnS Sndpmgrs",
       "srsrsrgm srgmpdnS SnSnSndp Sndpmgrs",
@@ -69,6 +69,20 @@ describe("exercise catalog", () => {
         .map((swara, index) => sustained.has(index) ? "-" : symbol[swara])
         .reduce((notation, token, index) => notation + (index > 0 && index % 8 === 0 ? ` ${token}` : token), "");
     })).toEqual(expected);
+  });
+
+  it("defaults the library to Sarali Varisai", () => {
+    expect(DEFAULT_EXERCISE_FILTER).toBe("Sarali");
+    expect(filterExercises(DEFAULT_EXERCISE_FILTER)).toHaveLength(14);
+  });
+
+  it("adapts Sarali patterns to Harikambhoji without duplicating the curriculum", () => {
+    expect(RAGAS.map((raga) => raga.name)).toEqual(["Mayamalavagowla", "Harikambhoji"]);
+    expect(HARIKAMBHOJI.ascending).toEqual(["S", "R₂", "G₃", "M₁", "P", "D₂", "N₂", "Ṡ"]);
+    expect(adaptExerciseToRaga(getExerciseById("sarali-1"), HARIKAMBHOJI).sequence).toEqual([
+      "S", "R₂", "G₃", "M₁", "P", "D₂", "N₂", "Ṡ",
+      "Ṡ", "N₂", "D₂", "P", "M₁", "G₃", "R₂", "S",
+    ]);
   });
 
   it("defines Growing Pyramid as centered 1–3–5–7 note rows", () => {
@@ -108,6 +122,12 @@ describe("music calculations", () => {
 
   it("uses the Mayamalavagowla R1 interval", () => {
     expect(frequencyForSwara("R₁", 261.63)).toBeCloseTo(261.63 * 2 ** (1 / 12), 5);
+  });
+
+  it("uses Harikambhoji R2, D2 and N2 intervals", () => {
+    expect(frequencyForSwara("R₂", 261.63, HARIKAMBHOJI)).toBeCloseTo(261.63 * 2 ** (2 / 12), 5);
+    expect(frequencyForSwara("D₂", 261.63, HARIKAMBHOJI)).toBeCloseTo(261.63 * 2 ** (9 / 12), 5);
+    expect(frequencyForSwara("N₂", 261.63, HARIKAMBHOJI)).toBeCloseTo(261.63 * 2 ** (10 / 12), 5);
   });
 
   it("converts tempo into beat duration and rejects invalid values", () => {

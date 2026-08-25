@@ -6,6 +6,7 @@ import { ExerciseNotation } from "./ExerciseNotation";
 type Props = Readonly<{
   exercise: Exercise;
   scale: ScaleDefinition;
+  ragas: readonly ScaleDefinition[];
   tonic: TonicOption;
   tempo: number;
   activeIndex: number;
@@ -14,6 +15,7 @@ type Props = Readonly<{
   instrument: InstrumentId;
   isLoadingAudio: boolean;
   onInstrumentChange: (instrument: InstrumentId) => void;
+  onRagaChange: (raga: ScaleDefinition) => void;
   onTonicChange: (tonic: TonicOption) => void;
   onTempoChange: (tempo: number) => void;
   onPlayTone: (index: number) => void;
@@ -21,7 +23,7 @@ type Props = Readonly<{
   onStop: () => void;
 }>;
 
-export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, onInstrumentChange, onTonicChange, onTempoChange, onPlayTone, onPlay, onStop }: Props) {
+export function PracticePanel({ exercise, scale, ragas, tonic, tempo, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, onInstrumentChange, onRagaChange, onTonicChange, onTempoChange, onPlayTone, onPlay, onStop }: Props) {
   return (
     <div className="practicePanel">
       <div className="practiceHeader">
@@ -32,6 +34,11 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
           <div className="exerciseMeta"><span>{exercise.status === "verified" ? "Verified curriculum" : "Prototype"}</span><span>{exercise.category}</span><span>{scale.name}</span><span>{exercise.sequence.length} beats</span></div>
         </div>
         <div className="settings">
+          {exercise.category === "Sarali" && <label className="ragaSetting">Raga
+            <select value={scale.id} onChange={(event) => onRagaChange(ragas.find((raga) => raga.id === event.target.value) ?? ragas[0])}>
+              {ragas.map((raga) => <option key={raga.id} value={raga.id}>{raga.name}</option>)}
+            </select>
+          </label>}
           <label>Instrument
             <select value={instrument} onChange={(event) => onInstrumentChange(event.target.value as InstrumentId)}>
               {INSTRUMENTS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
