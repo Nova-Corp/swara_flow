@@ -27,6 +27,26 @@ export const TONIC_OPTIONS: readonly TonicOption[] = [
   { label: "F♯", hz: 369.99 }, { label: "G", hz: 392 },
 ];
 
+function createPyramidExercise(id: string, title: string, peakDegree: number): Exercise {
+  const peak = MAYAMALAVAGOWLA.ascending[peakDegree];
+  if (!peak || peakDegree < 1) throw new RangeError("A pyramid peak must be part of the raga above Sa");
+  const rows = Array.from({ length: peakDegree + 1 }, (_, degree) => degree * 2 + 1);
+  const sequence = Array.from({ length: peakDegree + 1 }, (_, degree) => {
+    const ascent = MAYAMALAVAGOWLA.ascending.slice(0, degree + 1);
+    return [...ascent, ...ascent.slice(0, -1).reverse()];
+  }).flat();
+  return {
+    id,
+    category: "Pyramid",
+    status: "prototype",
+    title,
+    description: `Grow step by step from Sa to ${peak}, then return to Sa.`,
+    scaleId: MAYAMALAVAGOWLA.id,
+    sequence,
+    visualization: { kind: "pyramid", rows },
+  };
+}
+
 const definitions = [
   { id: "sarali-1", category: "Sarali", status: "verified", title: "Sarali Varisai 1", description: "Simple ascent and descent.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ", "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S"] },
   { id: "sarali-2", category: "Sarali", status: "verified", title: "Sarali Varisai 2", description: "Focus on Ri ascending and Ni descending.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "R₁", "S", "R₁", "S", "R₁", "G₃", "M₁", "S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ", "Ṡ", "N₃", "Ṡ", "N₃", "Ṡ", "N₃", "D₁", "P", "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S"] },
@@ -44,7 +64,11 @@ const definitions = [
   { id: "sarali-14", category: "Sarali", status: "verified", title: "Sarali Varisai 14", description: "Sustained Pa and upper Sa with paired Dha and Ma.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "R₁", "G₃", "M₁", "P", "P", "P", "P", "D₁", "D₁", "P", "P", "M₁", "M₁", "P", "P", "D₁", "N₃", "Ṡ", "Ṡ", "Ṡ", "N₃", "D₁", "P", "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S"], sustainAt: [5, 7, 11, 15, 19] },
   { id: "janta-1", category: "Janta", status: "prototype", title: "Janta Varisai 1", description: "Prototype · paired-note articulation.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "S", "R₁", "R₁", "G₃", "G₃", "M₁", "M₁", "P", "P", "D₁", "D₁", "N₃", "N₃", "Ṡ", "Ṡ"] },
   { id: "alankaram-1", category: "Alankaram", status: "prototype", title: "Four-note Alankaram", description: "Prototype · a flowing four-note pattern.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "R₁", "G₃", "M₁", "R₁", "G₃", "M₁", "P", "G₃", "M₁", "P", "D₁", "M₁", "P", "D₁", "N₃"] },
-  { id: "pyramid-1", category: "Pyramid", status: "prototype", title: "Growing pyramid", description: "Prototype · add one swara at a time.", scaleId: MAYAMALAVAGOWLA.id, sequence: ["S", "S", "R₁", "S", "S", "R₁", "G₃", "R₁", "S", "S", "R₁", "G₃", "M₁", "G₃", "R₁", "S"], visualization: { kind: "pyramid", rows: [1, 3, 5, 7] } },
+  createPyramidExercise("pyramid-1", "Pyramid to Ma", 3),
+  createPyramidExercise("pyramid-2", "Pyramid to Pa", 4),
+  createPyramidExercise("pyramid-3", "Pyramid to Dha", 5),
+  createPyramidExercise("pyramid-4", "Pyramid to Ni", 6),
+  createPyramidExercise("pyramid-5", "Full-octave pyramid", 7),
 ] as const satisfies readonly Exercise[];
 
 function validateCatalog(items: readonly Exercise[]): readonly Exercise[] {

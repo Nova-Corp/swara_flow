@@ -157,6 +157,11 @@ h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 
 .pyramidRow button { flex: 0 0 clamp(42px, 4vw, 58px); }
 .pyramidRow button i { width: calc(100% + clamp(8px, 1.5vw, 20px)); }
 .pyramidRow button:last-child i { display: none; }
+.densePyramid { gap: clamp(4px, .8vh, 9px); }
+.densePyramid .pyramidRow { gap: clamp(2px, .45vw, 6px); }
+.densePyramid .pyramidRow button { flex-basis: clamp(24px, 2.5vw, 36px); }
+.densePyramid .pyramidRow button span { width: clamp(24px, 2.5vw, 36px); font-size: clamp(14px, 1.5vw, 18px); }
+.densePyramid .pyramidRow button i { width: calc(100% + clamp(2px, .45vw, 6px)); }
 .transport { border-top: 1px solid var(--line); padding-top: 22px; display: flex; align-items: center; gap: 12px; }
 .transport button { cursor: pointer; }
 .restart { border: 1px solid rgba(37,33,57,.24); background: transparent; width: 46px; height: 46px; border-radius: 50%; font-size: 18px; transition: transform .2s ease, background .2s ease; }
@@ -224,6 +229,11 @@ footer p:last-child { justify-self: end; }
   .pyramidRow button { flex-basis: 38px; }
   .pyramidRow button span { width: 38px; font-size: 20px; }
   .pyramidRow button i { width: 43px; }
+  .densePyramid { gap: 5px; }
+  .densePyramid .pyramidRow { gap: 1px; }
+  .densePyramid .pyramidRow button { flex-basis: clamp(17px, 5vw, 24px); }
+  .densePyramid .pyramidRow button span { width: clamp(17px, 5vw, 24px); font-size: clamp(11px, 3vw, 14px); }
+  .densePyramid .pyramidRow button i { width: calc(100% + 1px); }
   .transport p { display: none; }
   .philosophy { padding-top: 80px; padding-bottom: 80px; }
   .philosophyNotes { align-items: stretch; flex-direction: column; gap: 10px; }

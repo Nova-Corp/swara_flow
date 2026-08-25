@@ -85,7 +85,13 @@ describe("exercise catalog", () => {
     ]);
   });
 
-  it("defines Growing Pyramid as centered 1–3–5–7 note rows", () => {
+  it("provides five progressive pyramid exercises", () => {
+    const pyramids = filterExercises("Pyramid");
+    expect(pyramids).toHaveLength(5);
+    expect(pyramids.map((exercise) => exercise.title)).toEqual([
+      "Pyramid to Ma", "Pyramid to Pa", "Pyramid to Dha", "Pyramid to Ni", "Full-octave pyramid",
+    ]);
+
     const pyramid = EXERCISES.find((exercise) => exercise.id === "pyramid-1");
     expect(pyramid).toBeDefined();
     expect(pyramid?.visualization).toEqual({ kind: "pyramid", rows: [1, 3, 5, 7] });
@@ -94,6 +100,12 @@ describe("exercise catalog", () => {
       ["S", "R₁", "S"],
       ["S", "R₁", "G₃", "R₁", "S"],
       ["S", "R₁", "G₃", "M₁", "G₃", "R₁", "S"],
+    ]);
+
+    const fullOctave = getExerciseById("pyramid-5");
+    expect(fullOctave.visualization).toEqual({ kind: "pyramid", rows: [1, 3, 5, 7, 9, 11, 13, 15] });
+    expect(splitPyramidRows(fullOctave).at(-1)?.map((note) => note.swara)).toEqual([
+      "S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S",
     ]);
   });
 });
