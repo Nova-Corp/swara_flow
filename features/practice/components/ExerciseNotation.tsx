@@ -39,7 +39,7 @@ export function ExerciseNotation({ exercise, activeIndex, onPlayTone }: Props) {
 
   if (pyramidRows.length > 0) {
     return (
-      <div className={`notation pyramidNotation${pyramidRows.length > 5 ? " densePyramid" : ""}`} aria-label={`${exercise.title} notation`}>
+      <div className={`notation pyramidNotation${pyramidRows.length >= 5 ? " densePyramid" : ""}`} aria-label={`${exercise.title} notation`}>
         {pyramidRows.map((row, rowIndex) => (
           <div className="pyramidRow" key={rowIndex}>
             {row.map((note) => <SwaraButton key={note.index} note={note} activeIndex={activeIndex} onPlayTone={onPlayTone} />)}

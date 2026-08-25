@@ -90,7 +90,7 @@ h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 
 .exerciseCard small { color: var(--muted); font-size: 10px; line-height: 1.4; }
 .arrow { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; color: transparent; font-size: 12px; }
 .exerciseCard.selected .arrow { color: white; background: var(--coral); }
-.practicePanel { min-width: 0; padding: clamp(30px, 4vw, 60px); display: flex; flex-direction: column; background: radial-gradient(circle at 90% 10%, rgba(216,204,241,.22), transparent 28%), var(--paper); }
+.practicePanel { min-width: 0; min-height: 0; padding: clamp(30px, 4vw, 60px); display: flex; flex-direction: column; background: radial-gradient(circle at 90% 10%, rgba(216,204,241,.22), transparent 28%), var(--paper); }
 .practiceHeader { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 32px; align-items: start; }
 .nowPlaying { margin: 0 0 14px; color: var(--coral); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; gap: 8px; }
 .nowPlaying span { width: 5px; height: 5px; background: var(--coral); border-radius: 50%; box-shadow: 0 0 0 5px rgba(235,109,90,.12); }
@@ -136,7 +136,7 @@ h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 
 .settingSwitch:focus-visible { outline: 3px solid rgba(235,109,90,.2); }
 .settingsPanel .tanpuraVolume { grid-column: 1 / -1; margin-top: 2px; }
 .tanpuraVolume b { min-width: 42px; }
-.notationStage { flex: 1; min-height: 240px; position: relative; display: flex; }
+.notationStage { flex: 1 1 auto; min-height: 0; position: relative; display: flex; overflow-x: hidden; overflow-y: auto; scrollbar-width: thin; }
 .notation { flex: 1; min-height: 240px; padding: 28px 0; display: grid; grid-template-columns: repeat(8, minmax(42px, 1fr)); align-content: center; row-gap: 26px; }
 .countInOverlay { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 2px; border-radius: 18px; background: rgba(247,243,236,.9); backdrop-filter: blur(5px); color: var(--night); }
 .countInOverlay small { color: var(--coral); font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
@@ -162,7 +162,7 @@ h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 
 .densePyramid .pyramidRow button { flex-basis: clamp(24px, 2.5vw, 36px); }
 .densePyramid .pyramidRow button span { width: clamp(24px, 2.5vw, 36px); font-size: clamp(14px, 1.5vw, 18px); }
 .densePyramid .pyramidRow button i { width: calc(100% + clamp(2px, .45vw, 6px)); }
-.transport { border-top: 1px solid var(--line); padding-top: 22px; display: flex; align-items: center; gap: 12px; }
+.transport { flex: 0 0 auto; border-top: 1px solid var(--line); padding-top: 22px; display: flex; align-items: center; gap: 12px; }
 .transport button { cursor: pointer; }
 .restart { border: 1px solid rgba(37,33,57,.24); background: transparent; width: 46px; height: 46px; border-radius: 50%; font-size: 18px; transition: transform .2s ease, background .2s ease; }
 .restart:hover { transform: rotate(-30deg); background: var(--paper-deep); }
@@ -170,7 +170,7 @@ h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 
 .playIcon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--saffron); color: var(--night); font-size: 11px; }
 .transport p { color: var(--muted); font-size: 10px; margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .transport p i { width: 5px; height: 5px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(184,223,199,.2); }
-.audioStatus { min-height: 18px; margin: 8px 0 0; color: #a43b2a; font-size: 11px; text-align: right; }
+.audioStatus { flex: 0 0 auto; min-height: 18px; margin: 8px 0 0; color: #a43b2a; font-size: 11px; text-align: right; }
 
 .philosophy { padding-top: 120px; padding-bottom: 120px; text-align: center; background: #e8ded0; position: relative; }
 .philosophy::before, .philosophy::after { content: ""; position: absolute; top: 50%; width: 14vw; height: 1px; background: rgba(37,33,57,.14); }
