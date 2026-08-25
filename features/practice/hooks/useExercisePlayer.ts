@@ -13,11 +13,13 @@ type PlayerOptions = Readonly<{
   scale: ScaleDefinition;
   bpm: number;
   tonicHz: number;
+  countInBeats?: number;
   createTonePlayer?: TonePlayerFactory;
 }>;
 
-export function useExercisePlayer({ exercise, scale, bpm, tonicHz, createTonePlayer }: PlayerOptions) {
+export function useExercisePlayer({ exercise, scale, bpm, tonicHz, countInBeats = 0, createTonePlayer }: PlayerOptions) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [countInBeat, setCountInBeat] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioError, setAudioError] = useState<string | null>(null);
   const [isLoadingAudio, setIsLoadingAudio] = useState(false);
@@ -42,6 +44,7 @@ export function useExercisePlayer({ exercise, scale, bpm, tonicHz, createTonePla
     tonePlayerRef.current?.stopAll();
     setIsPlaying(false);
     setActiveIndex(-1);
+    setCountInBeat(null);
   }, [clearTimer]);
 
   const playTone = useCallback(async (index: number, durationSeconds: number) => {
@@ -89,8 +92,25 @@ export function useExercisePlayer({ exercise, scale, bpm, tonicHz, createTonePla
       if (runVersion !== runVersionRef.current) return;
       timerRef.current = setTimeout(() => void step(index + 1), beatMs);
     };
-    void step(0);
-  }, [bpm, exercise.sequence.length, exercise.sustainAt, playTone, stop]);
+    if (countInBeats > 0) {
+      let remaining = countInBeats;
+      setCountInBeat(remaining);
+      const countDown = () => {
+        if (runVersion !== runVersionRef.current) return;
+        if (remaining === 1) {
+          setCountInBeat(null);
+          void step(0);
+          return;
+        }
+        remaining -= 1;
+        setCountInBeat(remaining);
+        timerRef.current = setTimeout(countDown, beatMs);
+      };
+      timerRef.current = setTimeout(countDown, beatMs);
+    } else {
+      void step(0);
+    }
+  }, [bpm, countInBeats, exercise.sequence.length, exercise.sustainAt, playTone, stop]);
 
   useEffect(() => stop(), [exercise.id, stop]);
   useEffect(() => {
@@ -105,5 +125,5 @@ export function useExercisePlayer({ exercise, scale, bpm, tonicHz, createTonePla
     void tonePlayerRef.current?.dispose();
   }, [clearTimer]);
 
-  return { activeIndex, audioError, isLoadingAudio, isPlaying, play, playToneAt, stop };
+  return { activeIndex, audioError, countInBeat, isLoadingAudio, isPlaying, play, playToneAt, stop };
 }

@@ -5,6 +5,7 @@ import { TONE_PLAYER_FACTORIES, type InstrumentId } from "../audio/instruments";
 import { adaptExerciseToRaga, DEFAULT_EXERCISE_FILTER, filterExercises, getExerciseById, getRagaById, MAYAMALAVAGOWLA, RAGAS, TONIC_OPTIONS } from "../domain/catalog";
 import type { ExerciseFilter } from "../domain/catalog";
 import { useExercisePlayer } from "../hooks/useExercisePlayer";
+import { useTanpura } from "../hooks/useTanpura";
 import { ExerciseLibrary } from "./ExerciseLibrary";
 import { PracticePanel } from "./PracticePanel";
 
@@ -15,6 +16,7 @@ export function PracticeWorkspace() {
   const [tempo, setTempo] = useState(72);
   const [tonic, setTonic] = useState(TONIC_OPTIONS[0]);
   const [instrument, setInstrument] = useState<InstrumentId>("flute");
+  const [countInEnabled, setCountInEnabled] = useState(true);
   const filteredExercises = useMemo(() => filterExercises(filter), [filter]);
   const baseExercise = getExerciseById(exerciseId);
   const scale = baseExercise.category === "Sarali" ? getRagaById(ragaId) : MAYAMALAVAGOWLA;
@@ -24,8 +26,10 @@ export function PracticeWorkspace() {
     scale,
     bpm: tempo,
     tonicHz: tonic.hz,
+    countInBeats: countInEnabled ? 4 : 0,
     createTonePlayer: TONE_PLAYER_FACTORIES[instrument],
   });
+  const tanpura = useTanpura(tonic.hz);
 
   function changeFilter(nextFilter: ExerciseFilter) {
     player.stop();
@@ -53,10 +57,18 @@ export function PracticeWorkspace() {
         audioError={player.audioError}
         instrument={instrument}
         isLoadingAudio={player.isLoadingAudio}
+        countInBeat={player.countInBeat}
+        countInEnabled={countInEnabled}
+        isTanpuraEnabled={tanpura.isEnabled}
+        tanpuraVolume={tanpura.volume}
+        tanpuraError={tanpura.error}
         onInstrumentChange={(nextInstrument) => { player.stop(); setInstrument(nextInstrument); }}
         onRagaChange={(nextRaga) => { player.stop(); setRagaId(nextRaga.id); }}
         onTonicChange={(nextTonic) => { player.stop(); setTonic(nextTonic); }}
         onTempoChange={(nextTempo) => { player.stop(); setTempo(nextTempo); }}
+        onCountInToggle={() => { player.stop(); setCountInEnabled((enabled) => !enabled); }}
+        onTanpuraToggle={() => { void tanpura.toggle(); }}
+        onTanpuraVolumeChange={tanpura.setVolume}
         onPlayTone={(index) => { player.stop(); void player.playToneAt(index); }}
         onPlay={player.play}
         onStop={player.stop}
