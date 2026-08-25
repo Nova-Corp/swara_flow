@@ -18,6 +18,22 @@ describe("exercise catalog", () => {
     expect(sarali.every((exercise) => exercise.category === "Sarali")).toBe(true);
     expect(filterExercises("All")).toBe(EXERCISES);
   });
+
+  it("preserves the verified Sarali Varisai 1 notation", () => {
+    expect(EXERCISES.find((exercise) => exercise.id === "sarali-1")?.sequence).toEqual([
+      "S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ",
+      "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S",
+    ]);
+  });
+
+  it("preserves the complete verified Sarali Varisai 2 notation", () => {
+    expect(EXERCISES.find((exercise) => exercise.id === "sarali-2")?.sequence).toEqual([
+      "S", "R₁", "S", "R₁", "S", "R₁", "G₃", "M₁",
+      "S", "R₁", "G₃", "M₁", "P", "D₁", "N₃", "Ṡ",
+      "Ṡ", "N₃", "Ṡ", "N₃", "Ṡ", "N₃", "D₁", "P",
+      "Ṡ", "N₃", "D₁", "P", "M₁", "G₃", "R₁", "S",
+    ]);
+  });
 });
 
 describe("sample selection", () => {
