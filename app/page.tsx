@@ -26,7 +26,7 @@ export default function Home() {
           </div>
         </div>
         <div className="heroVisual" aria-hidden="true">
-          <div className="orbit orbitOuter"><span>सा</span></div>
+          <div className="orbit orbitOuter"><span>Sa</span></div>
           <div className="orbit orbitMiddle"><span>pa</span></div>
           <div className="soundCore">
             <i /><i /><i /><i /><i /><i /><i />
