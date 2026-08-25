@@ -14,8 +14,8 @@ export function ExerciseLibrary({ exercises, filter, selectedId, onFilterChange,
   return (
     <aside className="library">
       <div className="sectionHeading">
-        <p>Exercise library</p>
-        <span>{exercises.length} patterns</span>
+        <div><span className="libraryKicker">Your lesson</span><p>Exercise library</p></div>
+        <span className="patternCount">{exercises.length} patterns</span>
       </div>
       <div className="filters" aria-label="Filter exercises">
         {EXERCISE_CATEGORIES.map((item) => (
@@ -34,7 +34,7 @@ export function ExerciseLibrary({ exercises, filter, selectedId, onFilterChange,
           >
             <span className="exerciseNumber">{String(index + 1).padStart(2, "0")}</span>
             <span><strong>{exercise.title}</strong><small>{exercise.description}</small></span>
-            <span className="arrow" aria-hidden="true">↗</span>
+            <span className="arrow" aria-hidden="true">→</span>
           </button>
         ))}
       </div>

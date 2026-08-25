@@ -26,12 +26,13 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
     <div className="practicePanel">
       <div className="practiceHeader">
         <div>
-          <p className="eyebrow">Now practising · {exercise.category} · {scale.name}</p>
+          <p className="nowPlaying"><span aria-hidden="true" /> Now practising</p>
           <h2>{exercise.title}</h2>
           <p>{exercise.description}</p>
+          <div className="exerciseMeta"><span>{exercise.category}</span><span>{scale.name}</span><span>{exercise.sequence.length} swaras</span></div>
         </div>
         <div className="settings">
-          <label>Voice
+          <label>Instrument
             <select value={instrument} onChange={(event) => onInstrumentChange(event.target.value as InstrumentId)}>
               {INSTRUMENTS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
             </select>
@@ -55,9 +56,9 @@ export function PracticePanel({ exercise, scale, tonic, tempo, activeIndex, isPl
       <div className="transport">
         <button className="restart" onClick={onStop} aria-label="Restart">↺</button>
         <button className="play" onClick={isPlaying ? onStop : onPlay}>
-          {isPlaying ? "Pause" : "Play exercise"}<span aria-hidden="true">{isPlaying ? "Ⅱ" : "▶"}</span>
+          <span className="playIcon" aria-hidden="true">{isPlaying ? "Ⅱ" : "▶"}</span>{isPlaying ? "Pause practice" : "Play exercise"}
         </button>
-        <p>Tap any swara to hear it</p>
+        <p><i aria-hidden="true" /> Tap any swara to hear it</p>
       </div>
       <p className="audioStatus" role="status" aria-live="polite">
         {audioError ?? (isLoadingAudio ? "Preparing instrument…" : "")}

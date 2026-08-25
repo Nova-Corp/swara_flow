@@ -5,28 +5,63 @@ export default function Home() {
     <main className="shell">
       <header className="topbar">
         <a className="brand" href="#top" aria-label="Swara Flow home">
-          <span className="brandMark" aria-hidden="true">S</span>
-          <span>swara flow</span>
+          <span className="brandMark" aria-hidden="true"><i />S</span>
+          <span className="brandName">swara <em>flow</em></span>
         </a>
-        <span className="openSource">open-source practice room</span>
+        <nav className="topnav" aria-label="Primary navigation">
+          <a href="#practice">Practice</a>
+          <a href="#about">About</a>
+        </nav>
+        <span className="openSource"><i aria-hidden="true" /> Free &amp; open source</span>
       </header>
 
       <section className="hero" id="top">
-        <div>
-          <p className="eyebrow">Carnatic practice, made visible</p>
-          <h1>Find your flow.<br />One swara at a time.</h1>
-          <p className="intro">Build clarity, breath and speed with guided exercises made for everyday Carnatic practice.</p>
+        <div className="heroCopy">
+          <p className="eyebrow"><span aria-hidden="true">✦</span> Your digital riyaz companion</p>
+          <h1>Feel every <em>swara.</em><br />Find your flow.</h1>
+          <p className="intro">A quiet, focused space to build shruti, clarity and confidence through everyday Carnatic practice.</p>
+          <div className="heroActions">
+            <a className="primaryAction" href="#practice">Begin practice <span aria-hidden="true">↓</span></a>
+            <p><strong>5</strong> guided patterns <i /> <strong>2</strong> instruments</p>
+          </div>
         </div>
-        <div className="heroGlyph" aria-hidden="true">
-          <span>S</span><i /><span>R</span><i /><span>G</span><i /><span>M</span>
+        <div className="heroVisual" aria-hidden="true">
+          <div className="orbit orbitOuter"><span>सा</span></div>
+          <div className="orbit orbitMiddle"><span>pa</span></div>
+          <div className="soundCore">
+            <i /><i /><i /><i /><i /><i /><i />
+            <strong>Sa</strong>
+            <small>the beginning</small>
+          </div>
+          <span className="floatingNote noteOne">R₁</span>
+          <span className="floatingNote noteTwo">M₁</span>
+          <span className="floatingNote noteThree">N₃</span>
         </div>
       </section>
 
-      <PracticeWorkspace />
+      <section className="practiceSection" id="practice">
+        <div className="sectionIntro">
+          <div>
+            <p className="eyebrow"><span aria-hidden="true">02</span> Practice room</p>
+            <h2>Today’s <em>riyaz</em></h2>
+          </div>
+          <p>Choose a pattern, set your Sa, and let each note settle before moving forward.</p>
+        </div>
+        <PracticeWorkspace />
+      </section>
+
+      <section className="philosophy" id="about">
+        <p className="eyebrow"><span aria-hidden="true">✦</span> A gentler way to learn</p>
+        <blockquote>Practice is not repetition.<br />It is <em>deep listening.</em></blockquote>
+        <div className="philosophyNotes">
+          <span>Hear the swara</span><i /><span>Follow the phrase</span><i /><span>Grow at your pace</span>
+        </div>
+      </section>
 
       <footer>
-        <p>Made for patient practice.</p>
-        <p>Swara Flow · Free and open source</p>
+        <a className="brand footerBrand" href="#top"><span className="brandMark" aria-hidden="true"><i />S</span><span className="brandName">swara <em>flow</em></span></a>
+        <p>Made with patience for Carnatic learners.</p>
+        <p>Free &amp; open source · 2026</p>
       </footer>
     </main>
   );
