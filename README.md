@@ -1,5 +1,11 @@
 # Swara Flow
 
+[![Live app](https://img.shields.io/badge/live-swara--flow.vercel.app-f0a43b?style=flat-square)](https://swara-flow.vercel.app/)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16.3.2-17152b?style=flat-square&logo=nextdotjs)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![GitHub stars](https://img.shields.io/github/stars/Nova-Corp/swara_flow?style=flat-square&logo=github)](https://github.com/Nova-Corp/swara_flow/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/Nova-Corp/swara_flow?style=flat-square)](https://github.com/Nova-Corp/swara_flow/commits/main/)
+
 Open-source Carnatic practice for swaras, patterns, and flute.
 
 Swara Flow turns foundational exercises into a focused visual practice room. Choose an exercise, set your tonic (`Sa`) and tempo, then listen and follow the active swara.

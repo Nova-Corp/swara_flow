@@ -8,8 +8,9 @@ import { useExercisePlayer } from "../hooks/useExercisePlayer";
 import { useTanpura } from "../hooks/useTanpura";
 import { ExerciseLibrary } from "./ExerciseLibrary";
 import { PracticePanel } from "./PracticePanel";
+import type { Language } from "../../i18n/language";
 
-export function PracticeWorkspace() {
+export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Language }>) {
   const workspaceRef = useRef<HTMLElement | null>(null);
   const [filter, setFilter] = useState<ExerciseFilter>(DEFAULT_EXERCISE_FILTER);
   const [exerciseId, setExerciseId] = useState(filterExercises(DEFAULT_EXERCISE_FILTER)[0].id);
@@ -64,9 +65,10 @@ export function PracticeWorkspace() {
   }
 
   return (
-    <section ref={workspaceRef} className="workspace" aria-label="Practice workspace">
-      <ExerciseLibrary exercises={filteredExercises} filter={filter} selectedId={exercise.id} onFilterChange={changeFilter} onSelect={selectExercise} />
+    <section ref={workspaceRef} className="workspace" aria-label={language === "ta" ? "பயிற்சி இடம்" : "Practice workspace"}>
+      <ExerciseLibrary language={language} exercises={filteredExercises} filter={filter} selectedId={exercise.id} onFilterChange={changeFilter} onSelect={selectExercise} />
       <PracticePanel
+        language={language}
         exercise={exercise}
         scale={scale}
         ragas={RAGAS}

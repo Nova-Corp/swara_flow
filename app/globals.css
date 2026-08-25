@@ -27,8 +27,10 @@ a { color: inherit; }
 .topnav { display: flex; align-items: center; gap: 32px; }
 .topnav a { color: rgba(255,255,255,.68); font-size: 13px; text-decoration: none; transition: color .2s ease; }
 .topnav a:hover { color: white; }
-.openSource { justify-self: end; color: rgba(255,255,255,.62); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; display: flex; align-items: center; gap: 9px; }
-.openSource i { width: 7px; height: 7px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 0 5px rgba(184,223,199,.12); }
+.languageSelector { justify-self: end; display: inline-flex; align-items: center; padding: 3px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(255,255,255,.06); }
+.languageSelector button { min-height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: rgba(255,255,255,.68); font-size: 11px; font-weight: 600; cursor: pointer; transition: color .2s ease, background .2s ease; }
+.languageSelector button:hover { color: white; }
+.languageSelector button.active { background: var(--saffron); color: var(--night); }
 
 .hero { min-height: 650px; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 6vw; color: white; background: var(--night); position: relative; isolation: isolate; }
 .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 79% 47%, rgba(118,89,158,.32), transparent 28%), radial-gradient(circle at 8% 0%, rgba(235,109,90,.12), transparent 24%); z-index: -1; }
@@ -39,6 +41,9 @@ a { color: inherit; }
 h1, h2, blockquote { font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; }
 h1 { margin: 0; font-size: clamp(66px, 7.7vw, 112px); line-height: .86; max-width: 850px; }
 h1 em, .sectionIntro h2 em, blockquote em { color: var(--saffron); font-weight: 400; }
+html[lang="ta"] h1 { font-family: var(--sans); font-size: clamp(44px, 5.4vw, 76px); line-height: 1.08; letter-spacing: -.025em; }
+html[lang="ta"] h2, html[lang="ta"] blockquote { font-family: var(--sans); letter-spacing: -.02em; }
+html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPlaying, html[lang="ta"] .libraryKicker { letter-spacing: .04em; }
 .intro { max-width: 610px; margin: 30px 0; color: rgba(255,255,255,.65); font-size: clamp(16px, 1.45vw, 20px); line-height: 1.65; }
 .heroActions { display: flex; align-items: center; gap: 32px; margin-top: 38px; }
 .primaryAction { display: inline-flex; align-items: center; gap: 28px; padding: 15px 18px 15px 22px; background: var(--saffron); color: var(--night); border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: 600; box-shadow: 0 12px 30px rgba(240,164,59,.16); transition: transform .2s ease, box-shadow .2s ease; }
@@ -212,8 +217,7 @@ footer p:last-child { justify-self: end; }
 
 @media (max-width: 540px) {
   .topbar, .hero, .practiceSection, .philosophy, footer { padding-left: 18px; padding-right: 18px; }
-  .openSource { font-size: 0; }
-  .openSource i { width: 8px; height: 8px; }
+  .languageSelector button { min-height: 30px; padding: 0 9px; font-size: 10px; }
   h1 { font-size: clamp(56px, 17vw, 74px); }
   .heroActions { align-items: flex-start; flex-direction: column; gap: 20px; }
   .practiceSection { padding-top: 78px; padding-bottom: 78px; }
