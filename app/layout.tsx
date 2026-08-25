@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   category: "education",
   creator: "Swara Flow",
   publisher: "Swara Flow",
+  verification: { google: "9W0Bj8R4sfrtvBF5x-20oOoti84IHkx0x4eUDqOirDA" },
   alternates: { canonical: "/" },
   robots: {
     index: HAS_PUBLIC_SITE_URL,
