@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { TONIC_OPTIONS } from "../domain/catalog";
 import { INSTRUMENTS, type InstrumentId } from "../audio/instruments";
 import type { Exercise, ScaleDefinition, TonicOption } from "../domain/types";
@@ -38,11 +39,21 @@ type Props = Readonly<{
 }>;
 
 export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, countInBeat, countInEnabled, isFullscreen, isFullscreenSupported, isTanpuraEnabled, tanpuraVolume, tanpuraError, onInstrumentChange, onRagaChange, onTonicChange, onSpeedChange, onCountInToggle, onFullscreenToggle, onTanpuraToggle, onTanpuraVolumeChange, onPlayTone, onPlay, onStop }: Props) {
+  const settingsRef = useRef<HTMLDetailsElement | null>(null);
   const isTamil = language === "ta";
   const instrumentName = INSTRUMENTS.find((item) => item.id === instrument)?.label ?? "Instrument";
   const localizedInstrumentName = isTamil ? (instrument === "flute" ? "புல்லாங்குழல்" : "எளிய ஒலி") : instrumentName;
   const localizedScaleName = isTamil ? (scale.id === "mayamalavagowla" ? "மாயாமாளவகௌளை" : "ஹரிகாம்போஜி") : scale.name;
   const speedNames = isTamil ? ["முதல் காலம்", "இரண்டாம் காலம்", "மூன்றாம் காலம்"] : ["First speed", "Second speed", "Third speed"];
+
+  useEffect(() => {
+    function closeSettings(event: PointerEvent) {
+      const settings = settingsRef.current;
+      if (settings?.open && event.target instanceof Node && !settings.contains(event.target)) settings.open = false;
+    }
+    document.addEventListener("pointerdown", closeSettings);
+    return () => document.removeEventListener("pointerdown", closeSettings);
+  }, []);
 
   return (
     <div className="practicePanel">
@@ -54,7 +65,7 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
           <div className="exerciseMeta"><span>{isTamil ? (exercise.status === "verified" ? "சரிபார்க்கப்பட்ட பாடம்" : "முன்மாதிரி") : (exercise.status === "verified" ? "Verified curriculum" : "Prototype")}</span><span>{isTamil ? CATEGORY_TAMIL[exercise.category] : exercise.category}</span><span>{localizedScaleName}</span><span>{exercise.sequence.length} {isTamil ? "தாளங்கள்" : "beats"}</span></div>
         </div>
         <div className="practiceTools">
-          <details className="settings">
+          <details className="settings" ref={settingsRef}>
             <summary>
               <span className="settingsSummary">
                 <strong>{isTamil ? "பயிற்சி அமைப்புகள்" : "Practice settings"}</strong>
@@ -92,7 +103,7 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
             <div className="countInSetting">
               <div>
                 <span className="settingLabel">{isTamil ? "தொடக்க எண்ணிக்கை" : "Count-in"}</span>
-                <small>{isTamil ? "இசைக்கு முன் 4 காட்சி எண்ணிக்கைகள்" : "4 visual beats before play"}</small>
+                <small>{isTamil ? "இசைக்கு முன் ஒலியுடன் 4 எண்ணிக்கைகள்" : "4 audible beats before play"}</small>
               </div>
               <button className={`settingSwitch${countInEnabled ? " active" : ""}`} type="button" role="switch" aria-checked={countInEnabled} onClick={onCountInToggle}>
                 <span aria-hidden="true" />{isTamil ? (countInEnabled ? "ஆம்" : "இல்லை") : (countInEnabled ? "On" : "Off")}

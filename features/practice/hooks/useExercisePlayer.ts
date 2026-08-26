@@ -26,12 +26,21 @@ export function useExercisePlayer({ exercise, scale, speed, tonicHz, countInBeat
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const runVersionRef = useRef(0);
   const tonePlayerRef = useRef<TonePlayer | null>(null);
+  const countInPlayerRef = useRef<TonePlayer | null>(null);
   const playerFactory = createTonePlayer ?? createWebAudioPlayer;
 
   const getTonePlayer = useCallback(() => {
     tonePlayerRef.current ??= playerFactory();
     return tonePlayerRef.current;
   }, [playerFactory]);
+
+  const playCountInBeep = useCallback((remaining: number) => {
+    countInPlayerRef.current ??= new WebAudioTonePlayer();
+    const frequencyHz = remaining === 1 ? 1_100 : 880;
+    void countInPlayerRef.current.play(frequencyHz, 0.08).catch(() => {
+      // The visual count-in remains available if the browser blocks the beep.
+    });
+  }, []);
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -42,6 +51,7 @@ export function useExercisePlayer({ exercise, scale, speed, tonicHz, countInBeat
     runVersionRef.current += 1;
     clearTimer();
     tonePlayerRef.current?.stopAll();
+    countInPlayerRef.current?.stopAll();
     setIsPlaying(false);
     setActiveIndex(-1);
     setCountInBeat(null);
@@ -95,6 +105,7 @@ export function useExercisePlayer({ exercise, scale, speed, tonicHz, countInBeat
     if (countInBeats > 0) {
       let remaining = countInBeats;
       setCountInBeat(remaining);
+      playCountInBeep(remaining);
       const countDown = () => {
         if (runVersion !== runVersionRef.current) return;
         if (remaining === 1) {
@@ -104,13 +115,14 @@ export function useExercisePlayer({ exercise, scale, speed, tonicHz, countInBeat
         }
         remaining -= 1;
         setCountInBeat(remaining);
+        playCountInBeep(remaining);
         timerRef.current = setTimeout(countDown, TALA_BEAT_DURATION_MS);
       };
       timerRef.current = setTimeout(countDown, TALA_BEAT_DURATION_MS);
     } else {
       void step(0);
     }
-  }, [countInBeats, exercise.sequence.length, exercise.sustainAt, playTone, speed, stop]);
+  }, [countInBeats, exercise.sequence.length, exercise.sustainAt, playCountInBeep, playTone, speed, stop]);
 
   useEffect(() => stop(), [exercise.id, stop]);
   useEffect(() => {
@@ -123,6 +135,7 @@ export function useExercisePlayer({ exercise, scale, speed, tonicHz, countInBeat
     runVersionRef.current += 1;
     clearTimer();
     void tonePlayerRef.current?.dispose();
+    void countInPlayerRef.current?.dispose();
   }, [clearTimer]);
 
   return { activeIndex, audioError, countInBeat, isLoadingAudio, isPlaying, play, playToneAt, stop };
