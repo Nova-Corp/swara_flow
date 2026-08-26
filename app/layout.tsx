@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: SITE_URL,
   title: "Carnatic Music Practice Online | Swara Flow",
-  description: "Practice 14 verified Sarali Varisai lessons in Mayamalavagowla or Harikambhoji with guided swara playback, adjustable Sa and tempo.",
+  description: "Practice 14 verified Sarali Varisai lessons in Mayamalavagowla or Harikambhoji with guided swara playback, adjustable Sa and three traditional speeds.",
   applicationName: "Swara Flow",
   category: "education",
   creator: "Swara Flow",

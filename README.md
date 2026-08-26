@@ -8,12 +8,12 @@
 
 Open-source Carnatic practice for swaras, patterns, and flute.
 
-Swara Flow turns foundational exercises into a focused visual practice room. Choose an exercise, set your tonic (`Sa`) and tempo, then listen and follow the active swara.
+Swara Flow turns foundational exercises into a focused visual practice room. Choose an exercise, set your tonic (`Sa`) and traditional speed, then listen and follow the active swara.
 
 ## First prototype
 
 - Sarali Varisai, Janta Varisai, Alankaram, and pyramid exercise categories
-- Adjustable tonic and tempo
+- Adjustable tonic and three traditional speeds (1, 2, and 4 swaras per beat)
 - Explicit Mayamalavagowla swaras and intervals for the starter exercises
 - Browser-based Web Audio playback with compact local samples and no backend
 - Selectable sampled flute or synthesized tone playback

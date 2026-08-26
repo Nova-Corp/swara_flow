@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { TONE_PLAYER_FACTORIES, type InstrumentId } from "../audio/instruments";
 import { adaptExerciseToRaga, DEFAULT_EXERCISE_FILTER, filterExercises, getExerciseById, getRagaById, MAYAMALAVAGOWLA, RAGAS, TONIC_OPTIONS } from "../domain/catalog";
 import type { ExerciseFilter } from "../domain/catalog";
+import type { TraditionalSpeed } from "../domain/music";
 import { useExercisePlayer } from "../hooks/useExercisePlayer";
 import { useTanpura } from "../hooks/useTanpura";
 import { ExerciseLibrary } from "./ExerciseLibrary";
@@ -15,7 +16,7 @@ export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Lan
   const [filter, setFilter] = useState<ExerciseFilter>(DEFAULT_EXERCISE_FILTER);
   const [exerciseId, setExerciseId] = useState(filterExercises(DEFAULT_EXERCISE_FILTER)[0].id);
   const [ragaId, setRagaId] = useState(MAYAMALAVAGOWLA.id);
-  const [tempo, setTempo] = useState(72);
+  const [speed, setSpeed] = useState<TraditionalSpeed>(1);
   const [tonic, setTonic] = useState(TONIC_OPTIONS[0]);
   const [instrument, setInstrument] = useState<InstrumentId>("flute");
   const [countInEnabled, setCountInEnabled] = useState(true);
@@ -28,7 +29,7 @@ export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Lan
   const player = useExercisePlayer({
     exercise,
     scale,
-    bpm: tempo,
+    speed,
     tonicHz: tonic.hz,
     countInBeats: countInEnabled ? 4 : 0,
     createTonePlayer: TONE_PLAYER_FACTORIES[instrument],
@@ -73,7 +74,7 @@ export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Lan
         scale={scale}
         ragas={RAGAS}
         tonic={tonic}
-        tempo={tempo}
+        speed={speed}
         activeIndex={player.activeIndex}
         isPlaying={player.isPlaying}
         audioError={player.audioError}
@@ -89,7 +90,7 @@ export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Lan
         onInstrumentChange={(nextInstrument) => { player.stop(); setInstrument(nextInstrument); }}
         onRagaChange={(nextRaga) => { player.stop(); setRagaId(nextRaga.id); }}
         onTonicChange={(nextTonic) => { player.stop(); setTonic(nextTonic); }}
-        onTempoChange={(nextTempo) => { player.stop(); setTempo(nextTempo); }}
+        onSpeedChange={(nextSpeed) => { player.stop(); setSpeed(nextSpeed); }}
         onCountInToggle={() => { player.stop(); setCountInEnabled((enabled) => !enabled); }}
         onFullscreenToggle={() => { void toggleFullscreen(); }}
         onTanpuraToggle={() => { void tanpura.toggle(); }}

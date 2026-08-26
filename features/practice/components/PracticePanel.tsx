@@ -1,6 +1,7 @@
 import { TONIC_OPTIONS } from "../domain/catalog";
 import { INSTRUMENTS, type InstrumentId } from "../audio/instruments";
 import type { Exercise, ScaleDefinition, TonicOption } from "../domain/types";
+import { TRADITIONAL_SPEEDS, type TraditionalSpeed } from "../domain/music";
 import { ExerciseNotation } from "./ExerciseNotation";
 import { CATEGORY_TAMIL, exerciseDescriptionTamil, exerciseTitleTamil, type Language } from "../../i18n/language";
 
@@ -10,7 +11,7 @@ type Props = Readonly<{
   scale: ScaleDefinition;
   ragas: readonly ScaleDefinition[];
   tonic: TonicOption;
-  tempo: number;
+  speed: TraditionalSpeed;
   activeIndex: number;
   isPlaying: boolean;
   audioError: string | null;
@@ -26,7 +27,7 @@ type Props = Readonly<{
   onInstrumentChange: (instrument: InstrumentId) => void;
   onRagaChange: (raga: ScaleDefinition) => void;
   onTonicChange: (tonic: TonicOption) => void;
-  onTempoChange: (tempo: number) => void;
+  onSpeedChange: (speed: TraditionalSpeed) => void;
   onCountInToggle: () => void;
   onFullscreenToggle: () => void;
   onTanpuraToggle: () => void;
@@ -36,11 +37,12 @@ type Props = Readonly<{
   onStop: () => void;
 }>;
 
-export function PracticePanel({ language, exercise, scale, ragas, tonic, tempo, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, countInBeat, countInEnabled, isFullscreen, isFullscreenSupported, isTanpuraEnabled, tanpuraVolume, tanpuraError, onInstrumentChange, onRagaChange, onTonicChange, onTempoChange, onCountInToggle, onFullscreenToggle, onTanpuraToggle, onTanpuraVolumeChange, onPlayTone, onPlay, onStop }: Props) {
+export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, countInBeat, countInEnabled, isFullscreen, isFullscreenSupported, isTanpuraEnabled, tanpuraVolume, tanpuraError, onInstrumentChange, onRagaChange, onTonicChange, onSpeedChange, onCountInToggle, onFullscreenToggle, onTanpuraToggle, onTanpuraVolumeChange, onPlayTone, onPlay, onStop }: Props) {
   const isTamil = language === "ta";
   const instrumentName = INSTRUMENTS.find((item) => item.id === instrument)?.label ?? "Instrument";
   const localizedInstrumentName = isTamil ? (instrument === "flute" ? "புல்லாங்குழல்" : "எளிய ஒலி") : instrumentName;
   const localizedScaleName = isTamil ? (scale.id === "mayamalavagowla" ? "மாயாமாளவகௌளை" : "ஹரிகாம்போஜி") : scale.name;
+  const speedNames = isTamil ? ["முதல் காலம்", "இரண்டாம் காலம்", "மூன்றாம் காலம்"] : ["First speed", "Second speed", "Third speed"];
 
   return (
     <div className="practicePanel">
@@ -56,7 +58,7 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, tempo, 
             <summary>
               <span className="settingsSummary">
                 <strong>{isTamil ? "பயிற்சி அமைப்புகள்" : "Practice settings"}</strong>
-                <small>{localizedScaleName} · {localizedInstrumentName} · ச {tonic.label} · {tempo} BPM</small>
+                <small>{localizedScaleName} · {localizedInstrumentName} · ச {tonic.label} · {speedNames[speed - 1]}</small>
               </span>
               <span className="settingsChevron" aria-hidden="true" />
             </summary>
@@ -76,12 +78,17 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, tempo, 
                 {TONIC_OPTIONS.map((item) => <option key={item.label}>{item.label}</option>)}
               </select>
             </label>
-            <label className="tempoSetting"><span className="settingLabel">{isTamil ? "வேகம்" : "Tempo"}</span>
-              <span className="tempoControl">
-                <input aria-label="Tempo" aria-valuetext={`${tempo} beats per minute`} type="range" min="40" max="180" step="4" value={tempo} onChange={(event) => onTempoChange(Number(event.target.value))} />
-                <b>{tempo} <small>BPM</small></b>
-              </span>
-            </label>
+            <fieldset className="speedSetting">
+              <legend className="settingLabel">{isTamil ? "பாரம்பரிய காலம்" : "Traditional speed"}</legend>
+              <div className="speedOptions">
+                {TRADITIONAL_SPEEDS.map((item) => (
+                  <button className={speed === item ? "active" : ""} type="button" aria-pressed={speed === item} key={item} onClick={() => onSpeedChange(item)}>
+                    <strong>{item}</strong><small>{isTamil ? ["முதல்", "இரண்டாம்", "மூன்றாம்"][item - 1] : ["First", "Second", "Third"][item - 1]}</small>
+                    <span>{2 ** (item - 1)} {isTamil ? "ஸ்வரம் / தாளம்" : `swara${item === 1 ? "" : "s"} / beat`}</span>
+                  </button>
+                ))}
+              </div>
+            </fieldset>
             <div className="countInSetting">
               <div>
                 <span className="settingLabel">{isTamil ? "தொடக்க எண்ணிக்கை" : "Count-in"}</span>

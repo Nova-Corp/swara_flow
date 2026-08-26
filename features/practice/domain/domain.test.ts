@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { adaptExerciseToRaga, DEFAULT_EXERCISE_FILTER, EXERCISES, filterExercises, getExerciseById, HARIKAMBHOJI, MAYAMALAVAGOWLA, RAGAS } from "./catalog";
-import { beatDurationMs, frequencyForSwara } from "./music";
+import { beatDurationMs, frequencyForSwara, swaraDurationMs } from "./music";
 import { selectNearestSample } from "../audio/SampledTonePlayer";
 import { splitPyramidRows } from "../components/ExerciseNotation";
 
@@ -146,5 +146,9 @@ describe("music calculations", () => {
     expect(beatDurationMs(120)).toBe(500);
     expect(() => beatDurationMs(0)).toThrow(RangeError);
     expect(() => frequencyForSwara("S", -1)).toThrow(RangeError);
+  });
+
+  it("doubles swara density across the three traditional speeds", () => {
+    expect([swaraDurationMs(1), swaraDurationMs(2), swaraDurationMs(3)]).toEqual([1_000, 500, 250]);
   });
 });

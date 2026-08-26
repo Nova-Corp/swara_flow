@@ -47,7 +47,7 @@ export default function Home() {
         isAccessibleForFree: true,
         inLanguage: "en-IN",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        featureList: ["14 verified Sarali Varisai lessons", "Mayamalavagowla and Harikambhoji playback", "Adjustable tonic and tempo", "Flute and synthesized tone"],
+        featureList: ["14 verified Sarali Varisai lessons", "Mayamalavagowla and Harikambhoji playback", "Adjustable tonic and three traditional speeds", "Flute and synthesized tone"],
       },
     ],
   };

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TonePlayer, TonePlayerFactory } from "../audio/TonePlayer";
 import { WebAudioTonePlayer } from "../audio/WebAudioTonePlayer";
-import { beatDurationMs, frequencyForSwara } from "../domain/music";
+import { swaraDurationMs, TALA_BEAT_DURATION_MS, type TraditionalSpeed, frequencyForSwara } from "../domain/music";
 import type { Exercise, ScaleDefinition } from "../domain/types";
 
 const createWebAudioPlayer: TonePlayerFactory = () => new WebAudioTonePlayer();
@@ -11,13 +11,13 @@ const createWebAudioPlayer: TonePlayerFactory = () => new WebAudioTonePlayer();
 type PlayerOptions = Readonly<{
   exercise: Exercise;
   scale: ScaleDefinition;
-  bpm: number;
+  speed: TraditionalSpeed;
   tonicHz: number;
   countInBeats?: number;
   createTonePlayer?: TonePlayerFactory;
 }>;
 
-export function useExercisePlayer({ exercise, scale, bpm, tonicHz, countInBeats = 0, createTonePlayer }: PlayerOptions) {
+export function useExercisePlayer({ exercise, scale, speed, tonicHz, countInBeats = 0, createTonePlayer }: PlayerOptions) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [countInBeat, setCountInBeat] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -64,14 +64,14 @@ export function useExercisePlayer({ exercise, scale, bpm, tonicHz, countInBeats 
   }, [exercise.sequence, getTonePlayer, scale, stop, tonicHz]);
 
   const playToneAt = useCallback(async (index: number) => {
-    const noteSeconds = Math.min(0.65, (beatDurationMs(bpm) / 1000) * 0.78);
+    const noteSeconds = Math.min(0.65, (swaraDurationMs(speed) / 1000) * 0.78);
     await playTone(index, noteSeconds);
-  }, [bpm, playTone]);
+  }, [playTone, speed]);
 
   const play = useCallback(() => {
     stop();
     const runVersion = runVersionRef.current;
-    const beatMs = beatDurationMs(bpm);
+    const noteMs = swaraDurationMs(speed);
     setIsPlaying(true);
 
     const step = async (index: number) => {
@@ -87,10 +87,10 @@ export function useExercisePlayer({ exercise, scale, bpm, tonicHz, countInBeats 
       } else {
         let heldBeats = 0;
         while (exercise.sustainAt?.includes(index + heldBeats + 1)) heldBeats += 1;
-        await playTone(index, (beatMs / 1000) * (heldBeats + 1) * 0.9);
+        await playTone(index, (noteMs / 1000) * (heldBeats + 1) * 0.9);
       }
       if (runVersion !== runVersionRef.current) return;
-      timerRef.current = setTimeout(() => void step(index + 1), beatMs);
+      timerRef.current = setTimeout(() => void step(index + 1), noteMs);
     };
     if (countInBeats > 0) {
       let remaining = countInBeats;
@@ -104,13 +104,13 @@ export function useExercisePlayer({ exercise, scale, bpm, tonicHz, countInBeats 
         }
         remaining -= 1;
         setCountInBeat(remaining);
-        timerRef.current = setTimeout(countDown, beatMs);
+        timerRef.current = setTimeout(countDown, TALA_BEAT_DURATION_MS);
       };
-      timerRef.current = setTimeout(countDown, beatMs);
+      timerRef.current = setTimeout(countDown, TALA_BEAT_DURATION_MS);
     } else {
       void step(0);
     }
-  }, [bpm, countInBeats, exercise.sequence.length, exercise.sustainAt, playTone, stop]);
+  }, [countInBeats, exercise.sequence.length, exercise.sustainAt, playTone, speed, stop]);
 
   useEffect(() => stop(), [exercise.id, stop]);
   useEffect(() => {
