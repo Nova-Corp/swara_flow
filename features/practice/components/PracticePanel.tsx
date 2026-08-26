@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TONIC_OPTIONS } from "../domain/catalog";
 import { INSTRUMENTS, type InstrumentId } from "../audio/instruments";
 import type { Exercise, ScaleDefinition, TonicOption } from "../domain/types";
 import { TRADITIONAL_SPEEDS, type TraditionalSpeed } from "../domain/music";
 import { ExerciseNotation } from "./ExerciseNotation";
+import { SwaraSthanaMap } from "./SwaraSthanaMap";
 import { CATEGORY_TAMIL, exerciseDescriptionTamil, exerciseTitleTamil, type Language } from "../../i18n/language";
 
 type Props = Readonly<{
@@ -40,6 +41,7 @@ type Props = Readonly<{
 
 export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, activeIndex, isPlaying, audioError, instrument, isLoadingAudio, countInBeat, countInEnabled, isFullscreen, isFullscreenSupported, isTanpuraEnabled, tanpuraVolume, tanpuraError, onInstrumentChange, onRagaChange, onTonicChange, onSpeedChange, onCountInToggle, onFullscreenToggle, onTanpuraToggle, onTanpuraVolumeChange, onPlayTone, onPlay, onStop }: Props) {
   const settingsRef = useRef<HTMLDetailsElement | null>(null);
+  const [practiceView, setPracticeView] = useState<"notation" | "sthana">("notation");
   const isTamil = language === "ta";
   const instrumentName = INSTRUMENTS.find((item) => item.id === instrument)?.label ?? "Instrument";
   const localizedInstrumentName = isTamil ? (instrument === "flute" ? "புல்லாங்குழல்" : "எளிய ஒலி") : instrumentName;
@@ -62,7 +64,6 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
           <p className="nowPlaying"><span aria-hidden="true" /> {isTamil ? "இப்போது பயிற்சி" : "Now practising"}</p>
           <h2>{isTamil ? exerciseTitleTamil(exercise.id, exercise.title) : exercise.title}</h2>
           <p>{isTamil ? exerciseDescriptionTamil(exercise.id, exercise.description) : exercise.description}</p>
-          <div className="exerciseMeta"><span>{isTamil ? (exercise.status === "verified" ? "சரிபார்க்கப்பட்ட பாடம்" : "முன்மாதிரி") : (exercise.status === "verified" ? "Verified curriculum" : "Prototype")}</span><span>{isTamil ? CATEGORY_TAMIL[exercise.category] : exercise.category}</span><span>{localizedScaleName}</span><span>{exercise.sequence.length} {isTamil ? "தாளங்கள்" : "beats"}</span></div>
         </div>
         <div className="practiceTools">
           <details className="settings" ref={settingsRef}>
@@ -121,10 +122,23 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
             </button>
           )}
         </div>
+        <div className="practiceMetaRow">
+          <div className="exerciseMeta"><span>{isTamil ? (exercise.status === "verified" ? "சரிபார்க்கப்பட்ட பாடம்" : "முன்மாதிரி") : (exercise.status === "verified" ? "Verified curriculum" : "Prototype")}</span><span>{isTamil ? CATEGORY_TAMIL[exercise.category] : exercise.category}</span><span>{localizedScaleName}</span><span>{exercise.sequence.length} {isTamil ? "தாளங்கள்" : "beats"}</span></div>
+          <div className="notationViewSwitch" role="tablist" aria-label={isTamil ? "பயிற்சி காட்சி" : "Practice view"}>
+            <button type="button" role="tab" aria-selected={practiceView === "notation"} className={practiceView === "notation" ? "active" : ""} onClick={() => setPracticeView("notation")}>{isTamil ? "ஸ்வரக் குறியீடு" : "Notation"}</button>
+            <button type="button" role="tab" aria-selected={practiceView === "sthana"} className={practiceView === "sthana" ? "active" : ""} onClick={() => setPracticeView("sthana")}>{isTamil ? "ஸ்வர ஸ்தானம்" : "Swara sthana"}</button>
+          </div>
+        </div>
       </div>
 
       <div className="notationStage">
-        <ExerciseNotation exercise={exercise} activeIndex={activeIndex} onPlayTone={onPlayTone} />
+        <div className="notationViewport">
+          <div className="notationViewPanel" role="tabpanel">
+            {practiceView === "notation"
+              ? <ExerciseNotation exercise={exercise} activeIndex={activeIndex} onPlayTone={onPlayTone} />
+              : <SwaraSthanaMap activeIndex={activeIndex} exercise={exercise} language={language} scale={scale} tonic={tonic} />}
+          </div>
+        </div>
         {countInBeat !== null && (
           <div className="countInOverlay" role="status" aria-live="assertive" aria-label={`Starting in ${countInBeat}`}>
             <small>{isTamil ? "தயாராகுங்கள்" : "Get ready"}</small>
