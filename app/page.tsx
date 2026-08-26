@@ -98,7 +98,7 @@ export default function Home() {
         <div className="sectionIntro">
           <div>
             <p className="eyebrow"><span aria-hidden="true">02</span> {isTamil ? "பயிற்சி அறை" : "Practice room"}</p>
-            <h2>{isTamil ? <>இன்றைய <em>பயிற்சி</em></> : <>Today’s <em>riyaz</em></>}</h2>
+            <h2>{isTamil ? <>இன்றைய <em>பயிற்சி</em></> : <>Today’s <em>Practice</em></>}</h2>
           </div>
           <p>{isTamil ? "ஒரு வடிவத்தைத் தேர்ந்தெடுத்து, உங்கள் ச-வை அமைத்து, அடுத்த ஸ்வரத்திற்குச் செல்லும் முன் ஒவ்வொரு ஸ்வரத்தையும் நிலைநிறுத்துங்கள்." : "Choose a pattern, set your Sa, and let each note settle before moving forward."}</p>
         </div>
