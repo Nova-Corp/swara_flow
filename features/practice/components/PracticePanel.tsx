@@ -123,7 +123,7 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
           )}
         </div>
         <div className="practiceMetaRow">
-          <div className="exerciseMeta"><span>{isTamil ? (exercise.status === "verified" ? "சரிபார்க்கப்பட்ட பாடம்" : "முன்மாதிரி") : (exercise.status === "verified" ? "Verified curriculum" : "Prototype")}</span><span>{isTamil ? CATEGORY_TAMIL[exercise.category] : exercise.category}</span><span>{localizedScaleName}</span><span>{exercise.sequence.length} {isTamil ? "தாளங்கள்" : "beats"}</span></div>
+          <div className="exerciseMeta"><span>{isTamil ? (exercise.status === "verified" ? "தொடக்கப் பாடத்திட்டம்" : "முன்மாதிரி") : (exercise.status === "verified" ? "Beginner curriculum" : "Prototype")}</span><span>{isTamil ? CATEGORY_TAMIL[exercise.category] : exercise.category}</span><span>{localizedScaleName}</span><span>{exercise.sequence.length} {isTamil ? "தாளங்கள்" : "beats"}</span></div>
           <div className="notationViewSwitch" role="tablist" aria-label={isTamil ? "பயிற்சி காட்சி" : "Practice view"}>
             <button type="button" role="tab" aria-selected={practiceView === "notation"} className={practiceView === "notation" ? "active" : ""} onClick={() => setPracticeView("notation")}>{isTamil ? "ஸ்வரக் குறியீடு" : "Notation"}</button>
             <button type="button" role="tab" aria-selected={practiceView === "sthana"} className={practiceView === "sthana" ? "active" : ""} onClick={() => setPracticeView("sthana")}>{isTamil ? "ஸ்வர ஸ்தானம்" : "Swara sthana"}</button>

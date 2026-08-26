@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { PracticeWorkspace } from "../features/practice/components/PracticeWorkspace";
 import type { Language } from "../features/i18n/language";
 import { absoluteUrl } from "../lib/site";
@@ -40,14 +41,14 @@ export default function Home() {
         name: "Swara Flow",
         url: absoluteUrl("/"),
         image: absoluteUrl("/og.png"),
-        description: "An interactive practice room with 14 verified Sarali Varisai lessons in Mayamalavagowla and Harikambhoji.",
+        description: "An interactive practice room with 14 beginner Sarali Varisai lessons in Mayamalavagowla and Harikambhoji.",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Any",
         browserRequirements: "Requires a modern web browser with Web Audio support.",
         isAccessibleForFree: true,
         inLanguage: "en-IN",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        featureList: ["14 verified Sarali Varisai lessons", "Mayamalavagowla and Harikambhoji playback", "Adjustable tonic and three traditional speeds", "Flute and synthesized tone"],
+        featureList: ["14 beginner Sarali Varisai lessons", "Mayamalavagowla and Harikambhoji playback", "Adjustable tonic and three traditional speeds", "Flute and synthesized tone"],
       },
     ],
   };
@@ -62,6 +63,7 @@ export default function Home() {
         </a>
         <nav className="topnav" aria-label={isTamil ? "முதன்மை வழிசெலுத்தல்" : "Primary navigation"}>
           <a href="#practice">{isTamil ? "பயிற்சி" : "Practice"}</a>
+          <Link href="/learn/sarali-varisai">{isTamil ? "பாடங்கள்" : "Lessons"}</Link>
           <a href="#about">{isTamil ? "அறிமுகம்" : "About"}</a>
         </nav>
         <div className="languageSelector" role="group" aria-label={isTamil ? "மொழியைத் தேர்ந்தெடுக்கவும்" : "Choose language"}>
@@ -77,7 +79,7 @@ export default function Home() {
           <p className="intro">{isTamil ? "தினசரி கர்நாடக இசைப் பயிற்சியின் மூலம் சுருதி, தெளிவு மற்றும் தன்னம்பிக்கையை வளர்க்கும் அமைதியான இடம்." : "A quiet, focused space to build shruti, clarity and confidence through everyday Carnatic practice."}</p>
           <div className="heroActions">
             <a className="primaryAction" href="#practice-workspace">{isTamil ? "பயிற்சியைத் தொடங்குங்கள்" : "Begin practice"} <span aria-hidden="true">↓</span></a>
-            <p><strong>14</strong> {isTamil ? "சரிபார்க்கப்பட்ட பாடங்கள்" : "verified lessons"} <i /> <strong>2</strong> {isTamil ? "இசைக்கருவிகள்" : "instruments"}</p>
+            <p><strong>14</strong> {isTamil ? "தொடக்கப் பாடங்கள்" : "beginner lessons"} <i /> <strong>2</strong> {isTamil ? "இசைக்கருவிகள்" : "instruments"}</p>
           </div>
         </div>
         <div className="heroVisual" aria-hidden="true">

@@ -43,6 +43,15 @@ export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Lan
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
+  useEffect(() => {
+    const requestedExercise = new URLSearchParams(window.location.search).get("exercise");
+    if (!requestedExercise) return;
+    const matchingExercise = filterExercises("All").find((item) => item.id === requestedExercise);
+    if (!matchingExercise) return;
+    setFilter(matchingExercise.category);
+    setExerciseId(matchingExercise.id);
+  }, []);
+
   async function toggleFullscreen() {
     if (!workspaceRef.current || !isFullscreenSupported) return;
     try {
