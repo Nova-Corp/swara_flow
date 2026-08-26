@@ -89,17 +89,6 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
                 {TONIC_OPTIONS.map((item) => <option key={item.label}>{item.label}</option>)}
               </select>
             </label>
-            <fieldset className="speedSetting">
-              <legend className="settingLabel">{isTamil ? "பாரம்பரிய காலம்" : "Traditional speed"}</legend>
-              <div className="speedOptions">
-                {TRADITIONAL_SPEEDS.map((item) => (
-                  <button className={speed === item ? "active" : ""} type="button" aria-pressed={speed === item} key={item} onClick={() => onSpeedChange(item)}>
-                    <strong>{item}</strong><small>{isTamil ? ["முதல்", "இரண்டாம்", "மூன்றாம்"][item - 1] : ["First", "Second", "Third"][item - 1]}</small>
-                    <span>{2 ** (item - 1)} {isTamil ? "ஸ்வரம் / தாளம்" : `swara${item === 1 ? "" : "s"} / beat`}</span>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
             <div className="countInSetting">
               <div>
                 <span className="settingLabel">{isTamil ? "தொடக்க எண்ணிக்கை" : "Count-in"}</span>
@@ -149,6 +138,20 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
         <button className="play" onClick={isPlaying ? onStop : onPlay}>
           <span className="playIcon" aria-hidden="true">{isPlaying ? "Ⅱ" : "▶"}</span>{isTamil ? (countInBeat !== null ? "எண்ணிக்கையை நிறுத்து" : isPlaying ? "பயிற்சியை இடைநிறுத்து" : "பயிற்சியை இயக்கு") : (countInBeat !== null ? "Cancel count-in" : isPlaying ? "Pause practice" : "Play exercise")}
         </button>
+        <div className="transportSpeed" role="group" aria-label={isTamil ? "பாரம்பரிய காலம்" : "Traditional speed"}>
+          <span>{isTamil ? "காலம்" : "Speed"}</span>
+          {TRADITIONAL_SPEEDS.map((item) => (
+            <button
+              className={speed === item ? "active" : ""}
+              type="button"
+              aria-label={`${speedNames[item - 1]} · ${2 ** (item - 1)} ${isTamil ? "ஸ்வரம் ஒரு தாளத்திற்கு" : `swara${item === 1 ? "" : "s"} per beat`}`}
+              aria-pressed={speed === item}
+              title={speedNames[item - 1]}
+              key={item}
+              onClick={() => onSpeedChange(item)}
+            >{item}</button>
+          ))}
+        </div>
         <p><i aria-hidden="true" /> {isTamil ? "கேட்க எந்த ஸ்வரத்தையும் தொடுங்கள்" : "Tap any swara to hear it"}</p>
       </div>
       <p className="audioStatus" role="status" aria-live="polite">

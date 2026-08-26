@@ -117,22 +117,12 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .settingsChevron::before { content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); }
 .settings[open] .settingsChevron { transform: rotate(180deg); }
 .settingsPanel { position: absolute; z-index: 20; top: calc(100% + 8px); right: 0; width: 340px; max-height: min(570px, 72vh); overflow-y: auto; display: grid; grid-template-columns: repeat(2, minmax(112px, 1fr)); gap: 14px; padding: 18px; border: 1px solid rgba(37,33,57,.16); border-radius: 18px; background: rgba(255,252,247,.98); box-shadow: 0 22px 55px rgba(37,33,57,.18); scrollbar-width: thin; }
-.settingsPanel .ragaSetting, .settingsPanel .speedSetting { grid-column: 1 / -1; }
+.settingsPanel .ragaSetting { grid-column: 1 / -1; }
 .settingsPanel label { color: var(--muted); display: grid; gap: 7px; min-width: 0; }
 .settingLabel { font-size: 10px; font-weight: 600; line-height: 1; text-transform: uppercase; letter-spacing: .1em; }
 .settingsPanel select { width: 100%; min-height: 42px; appearance: none; -webkit-appearance: none; border: 1px solid rgba(37,33,57,.18); border-radius: 10px; padding: 0 34px 0 11px; background-color: var(--paper); background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 16px) 17px, calc(100% - 11px) 17px; background-repeat: no-repeat; background-size: 5px 5px; color: var(--ink); font: 600 13px/1 var(--sans); cursor: pointer; }
 .settingsPanel select:hover { border-color: rgba(37,33,57,.4); }
 .settingsPanel select:focus-visible { outline: 3px solid rgba(235,109,90,.2); border-color: var(--coral); }
-.speedSetting { min-width: 0; margin: 0; padding: 0; border: 0; }
-.speedSetting legend { margin-bottom: 7px; }
-.speedOptions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
-.speedOptions button { min-width: 0; min-height: 62px; display: grid; grid-template-columns: auto 1fr; align-content: center; align-items: baseline; gap: 2px 5px; padding: 8px; border: 1px solid rgba(37,33,57,.18); border-radius: 10px; background: var(--paper); color: var(--muted); text-align: left; cursor: pointer; }
-.speedOptions button strong { color: var(--ink); font: 600 15px/1 var(--sans); }
-.speedOptions button small { overflow: hidden; font-size: 10px; font-weight: 600; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
-.speedOptions button span { grid-column: 1 / -1; font-size: 8px; line-height: 1.2; white-space: nowrap; }
-.speedOptions button:hover { border-color: rgba(37,33,57,.4); }
-.speedOptions button.active { border-color: var(--coral); background: rgba(235,109,90,.1); color: #8e3b30; box-shadow: inset 0 0 0 1px rgba(235,109,90,.16); }
-.speedOptions button:focus-visible { outline: 3px solid rgba(235,109,90,.2); border-color: var(--coral); }
 .settingsPanel .tempoControl { display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 0 11px; border: 1px solid rgba(37,33,57,.18); border-radius: 10px; background: var(--paper); }
 .settingsPanel input { width: 100%; accent-color: var(--coral); cursor: pointer; }
 .settingsPanel b { color: var(--ink); min-width: 58px; font-size: 13px; text-align: right; white-space: nowrap; }
@@ -183,6 +173,11 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .restart:hover { transform: rotate(-30deg); background: var(--paper-deep); }
 .play { border: 0; background: var(--night); color: white; border-radius: 999px; padding: 8px 20px 8px 8px; display: flex; gap: 12px; align-items: center; font-size: 12px; box-shadow: 0 9px 22px rgba(23,21,43,.18); }
 .playIcon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--saffron); color: var(--night); font-size: 11px; }
+.transportSpeed { flex: 0 0 auto; display: flex; align-items: center; gap: 5px; margin-left: 3px; }
+.transportSpeed > span { margin-right: 2px; color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.transportSpeed button { width: 30px; height: 30px; padding: 0; border: 1px solid rgba(37,33,57,.18); border-radius: 50%; background: transparent; color: var(--muted); font: 600 11px/1 var(--sans); }
+.transportSpeed button:hover { border-color: rgba(37,33,57,.42); color: var(--ink); }
+.transportSpeed button.active { border-color: var(--coral); background: rgba(235,109,90,.12); color: #8e3b30; box-shadow: inset 0 0 0 1px rgba(235,109,90,.14); }
 .transport p { color: var(--muted); font-size: 10px; margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .transport p i { width: 5px; height: 5px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(184,223,199,.2); }
 .audioStatus { flex: 0 0 auto; min-height: 0; margin: 6px 0 0; color: #a43b2a; font-size: 11px; text-align: right; }
@@ -237,7 +232,7 @@ footer p:last-child { justify-self: end; }
   .exerciseCard small { font-size: 11px; }
   .practiceHeader h2 { font-size: 46px; }
   .settingsPanel { grid-template-columns: 1fr; width: 100%; max-height: 68vh; padding: 14px; gap: 13px; }
-  .settingsPanel .ragaSetting, .settingsPanel .speedSetting, .countInSetting, .tanpuraSetting { grid-column: 1; }
+  .settingsPanel .ragaSetting, .countInSetting, .tanpuraSetting { grid-column: 1; }
   .notation { grid-template-columns: repeat(4, 1fr); min-height: 260px; padding: 28px 0; row-gap: 24px; }
   .notation button:nth-child(4n) i { display: none; }
   .pyramidNotation { gap: 14px; }
@@ -251,6 +246,8 @@ footer p:last-child { justify-self: end; }
   .densePyramid .pyramidRow button span { width: clamp(17px, 5vw, 24px); font-size: clamp(11px, 3vw, 14px); }
   .densePyramid .pyramidRow button i { width: calc(100% + 1px); }
   .transport p { display: none; }
+  .transport { flex-wrap: wrap; }
+  .transportSpeed { flex-basis: 100%; justify-content: flex-end; margin: 2px 0 0; }
   .philosophy { padding-top: 80px; padding-bottom: 80px; }
   .philosophyNotes { align-items: stretch; flex-direction: column; gap: 10px; }
   .philosophyNotes i { align-self: center; }
