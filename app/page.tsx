@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { GitHubHeaderLink } from "./_components/GitHubHeaderLink";
 import { PracticeWorkspace } from "../features/practice/components/PracticeWorkspace";
 import type { Language } from "../features/i18n/language";
 import { absoluteUrl } from "../lib/site";
@@ -61,14 +62,17 @@ export default function Home() {
           <span className="brandMark" aria-hidden="true"><i />S</span>
           <span className="brandName">swara <em>flow</em></span>
         </a>
-        <nav className="topnav" aria-label={isTamil ? "முதன்மை வழிசெலுத்தல்" : "Primary navigation"}>
-          <a href="#practice">{isTamil ? "பயிற்சி" : "Practice"}</a>
-          <Link href="/learn/sarali-varisai">{isTamil ? "பாடங்கள்" : "Lessons"}</Link>
-          <a href="#about">{isTamil ? "அறிமுகம்" : "About"}</a>
-        </nav>
-        <div className="languageSelector" role="group" aria-label={isTamil ? "மொழியைத் தேர்ந்தெடுக்கவும்" : "Choose language"}>
-          <button className={language === "en" ? "active" : ""} type="button" aria-pressed={language === "en"} onClick={() => changeLanguage("en")}>English</button>
-          <button className={language === "ta" ? "active" : ""} type="button" aria-pressed={language === "ta"} onClick={() => changeLanguage("ta")}>தமிழ்</button>
+        <div className="headerControls">
+          <nav className="topnav" aria-label={isTamil ? "முதன்மை வழிசெலுத்தல்" : "Primary navigation"}>
+            <a href="#practice">{isTamil ? "பயிற்சி" : "Practice"}</a>
+            <Link href="/learn/sarali-varisai">{isTamil ? "பாடங்கள்" : "Lessons"}</Link>
+            <a href="#about">{isTamil ? "அறிமுகம்" : "About"}</a>
+          </nav>
+          <div className="languageSelector" role="group" aria-label={isTamil ? "மொழியைத் தேர்ந்தெடுக்கவும்" : "Choose language"}>
+            <button className={language === "en" ? "active" : ""} type="button" aria-pressed={language === "en"} onClick={() => changeLanguage("en")}>English</button>
+            <button className={language === "ta" ? "active" : ""} type="button" aria-pressed={language === "ta"} onClick={() => changeLanguage("ta")}>தமிழ்</button>
+          </div>
+          <GitHubHeaderLink />
         </div>
       </header>
 

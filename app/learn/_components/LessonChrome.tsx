@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { GitHubHeaderLink } from "../../_components/GitHubHeaderLink";
 
 export function LessonChrome({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -9,11 +10,14 @@ export function LessonChrome({ children }: Readonly<{ children: ReactNode }>) {
           <span className="brandMark" aria-hidden="true"><i />S</span>
           <span className="brandName">swara <em>flow</em></span>
         </Link>
-        <nav className="lessonNav" aria-label="Lesson navigation">
-          <Link href="/">Home</Link>
-          <Link href="/learn/sarali-varisai">Lessons</Link>
-          <Link className="lessonNavCta" href="/#practice-workspace">Practice</Link>
-        </nav>
+        <div className="headerControls lessonHeaderControls">
+          <nav className="topnav lessonNav" aria-label="Lesson navigation">
+            <Link href="/#practice">Practice</Link>
+            <Link href="/learn/sarali-varisai" aria-current="page">Lessons</Link>
+            <Link href="/#about">About</Link>
+          </nav>
+          <GitHubHeaderLink />
+        </div>
       </header>
       {children}
       <footer className="lessonFooter">
@@ -27,4 +31,3 @@ export function LessonChrome({ children }: Readonly<{ children: ReactNode }>) {
     </main>
   );
 }
-
