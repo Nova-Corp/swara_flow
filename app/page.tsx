@@ -76,7 +76,7 @@ export default function Home() {
           <h1>{isTamil ? <>ஒவ்வொரு <em>ஸ்வரத்தையும்</em> உணருங்கள்.<br />உங்கள் ஓட்டத்தைக் கண்டறியுங்கள்.</> : <>Feel every <em>swara.</em><br />Find your flow.</>}</h1>
           <p className="intro">{isTamil ? "தினசரி கர்நாடக இசைப் பயிற்சியின் மூலம் சுருதி, தெளிவு மற்றும் தன்னம்பிக்கையை வளர்க்கும் அமைதியான இடம்." : "A quiet, focused space to build shruti, clarity and confidence through everyday Carnatic practice."}</p>
           <div className="heroActions">
-            <a className="primaryAction" href="#practice">{isTamil ? "பயிற்சியைத் தொடங்குங்கள்" : "Begin practice"} <span aria-hidden="true">↓</span></a>
+            <a className="primaryAction" href="#practice-workspace">{isTamil ? "பயிற்சியைத் தொடங்குங்கள்" : "Begin practice"} <span aria-hidden="true">↓</span></a>
             <p><strong>14</strong> {isTamil ? "சரிபார்க்கப்பட்ட பாடங்கள்" : "verified lessons"} <i /> <strong>2</strong> {isTamil ? "இசைக்கருவிகள்" : "instruments"}</p>
           </div>
         </div>

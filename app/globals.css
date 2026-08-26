@@ -80,9 +80,9 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .sectionHeading { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .sectionHeading p { font-family: var(--serif); font-size: 28px; margin: 3px 0 0; }
 .libraryKicker { color: var(--coral); font-size: 9px; text-transform: uppercase; letter-spacing: .16em; font-weight: 600; }
-.patternCount { color: var(--muted); font-size: 10px; padding-bottom: 5px; }
+.patternCount { color: var(--muted); font-size: 11px; padding-bottom: 5px; }
 .filters { display: flex; flex-wrap: wrap; gap: 7px; margin: 25px 0; }
-.filters button { border: 1px solid rgba(37,33,57,.14); border-radius: 999px; background: rgba(255,255,255,.32); padding: 8px 12px; font-size: 10px; cursor: pointer; transition: .2s ease; }
+.filters button { border: 1px solid rgba(37,33,57,.14); border-radius: 999px; background: rgba(255,255,255,.32); padding: 8px 12px; font-size: 11px; cursor: pointer; transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
 .filters button:hover { border-color: var(--ink); }
 .filters button.active { background: var(--night); color: white; border-color: var(--night); box-shadow: 0 6px 14px rgba(23,21,43,.15); }
 .exerciseList { display: grid; gap: 8px; }
@@ -92,7 +92,7 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .exerciseNumber { color: var(--coral); font-family: var(--serif); font-size: 15px; }
 .exerciseCard strong, .exerciseCard small { display: block; }
 .exerciseCard strong { font-size: 13px; margin-bottom: 5px; }
-.exerciseCard small { color: var(--muted); font-size: 10px; line-height: 1.4; }
+.exerciseCard small { color: var(--muted); font-size: 11px; line-height: 1.45; }
 .arrow { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; color: transparent; font-size: 12px; }
 .exerciseCard.selected .arrow { color: white; background: var(--coral); }
 .practicePanel { min-width: 0; min-height: 0; padding: clamp(30px, 4vw, 60px); padding-bottom: clamp(22px, 2.5vw, 34px); display: flex; flex-direction: column; background: radial-gradient(circle at 90% 10%, rgba(216,204,241,.22), transparent 28%), var(--paper); }
@@ -103,7 +103,7 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .practiceHeader > div > p:not(.nowPlaying) { color: var(--muted); max-width: 560px; font-size: 13px; line-height: 1.55; }
 .practiceMetaRow { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .exerciseMeta { display: flex; flex-wrap: nowrap; gap: 6px; white-space: nowrap; }
-.exerciseMeta span { padding: 7px 9px; border: 1px solid rgba(37,33,57,.18); border-radius: 999px; color: var(--ink); background: rgba(255,255,255,.68); font-size: 10px; font-weight: 600; line-height: 1; letter-spacing: .01em; }
+.exerciseMeta span { padding: 7px 9px; border: 1px solid rgba(37,33,57,.18); border-radius: 999px; color: var(--ink); background: rgba(255,255,255,.68); font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: .01em; }
 .exerciseMeta span:first-child { background: rgba(184,223,199,.48); border-color: rgba(55,115,82,.24); color: #285c43; }
 .practiceTools { display: flex; align-items: flex-start; gap: 9px; }
 .settings { position: relative; width: 300px; }
@@ -113,7 +113,7 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .settings summary:focus-visible { outline: 3px solid rgba(235,109,90,.2); border-color: var(--coral); }
 .settingsSummary { min-width: 0; display: grid; gap: 5px; }
 .settingsSummary strong { color: var(--ink); font-size: 12px; }
-.settingsSummary small { overflow: hidden; color: var(--muted); font-size: 10px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.settingsSummary small { overflow: hidden; color: var(--muted); font-size: 11px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
 .settingsChevron { flex: 0 0 auto; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--paper-deep); color: var(--ink); transition: transform .2s ease; }
 .settingsChevron::before { content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); }
 .settings[open] .settingsChevron { transform: rotate(180deg); }
@@ -145,7 +145,7 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .notationStage { flex: 1 1 auto; min-height: 0; position: relative; display: flex; overflow-x: hidden; overflow-y: auto; scrollbar-width: thin; }
 .notationViewport { flex: 1; min-width: 0; min-height: 240px; display: flex; flex-direction: column; }
 .notationViewSwitch { flex: 0 0 auto; display: inline-flex; gap: 3px; padding: 3px; border: 1px solid rgba(37,33,57,.14); border-radius: 999px; background: rgba(255,255,255,.58); }
-.notationViewSwitch button { min-height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 9px; font-weight: 600; cursor: pointer; }
+.notationViewSwitch button { min-height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 10px; font-weight: 600; cursor: pointer; transition: color .15s ease, background-color .15s ease, box-shadow .15s ease, transform .15s ease; }
 .notationViewSwitch button.active { background: var(--night); color: white; box-shadow: 0 5px 12px rgba(23,21,43,.14); }
 .notationViewPanel { flex: 1; min-height: 0; display: flex; }
 .sthanaMap { flex: 1; min-width: 0; padding: 14px 0 18px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
@@ -211,13 +211,30 @@ html[lang="ta"] .eyebrow, html[lang="ta"] .settingLabel, html[lang="ta"] .nowPla
 .playIcon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--saffron); color: var(--night); font-size: 11px; }
 .transportSpeed { flex: 0 0 auto; display: flex; align-items: center; gap: 5px; margin-left: 3px; }
 .transportSpeed > span { margin-right: 2px; color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
-.transportSpeed button { width: 30px; height: 30px; padding: 0; border: 1px solid rgba(37,33,57,.18); border-radius: 50%; background: transparent; color: var(--muted); font: 600 11px/1 var(--sans); }
+.transportSpeed button { width: 34px; height: 34px; padding: 0; border: 1px solid rgba(37,33,57,.18); border-radius: 50%; background: transparent; color: var(--muted); font: 600 11px/1 var(--sans); }
 .transportSpeed button:hover { border-color: rgba(37,33,57,.42); color: var(--ink); }
 .transportSpeed button.active { border-color: var(--coral); background: rgba(235,109,90,.12); color: #8e3b30; box-shadow: inset 0 0 0 1px rgba(235,109,90,.14); }
-.transport p { color: var(--muted); font-size: 10px; margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.transport p { color: var(--muted); font-size: 11px; margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .transport p i { width: 5px; height: 5px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(184,223,199,.2); }
 .audioStatus { flex: 0 0 auto; min-height: 0; margin: 6px 0 0; color: #a43b2a; font-size: 11px; text-align: right; }
 .audioStatus:empty { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .play:hover { box-shadow: 0 12px 28px rgba(23,21,43,.24); }
+}
+
+.primaryAction:active,
+.languageSelector button:active,
+.filters button:active,
+.exerciseCard:active,
+.settings summary:active,
+.fullscreenButton:active,
+.settingSwitch:active,
+.notationViewSwitch button:active,
+.notation button:active span,
+.restart:active,
+.play:active,
+.transportSpeed button:active { transform: scale(.96); }
 
 .philosophy { padding-top: 120px; padding-bottom: 120px; text-align: center; background: #e8ded0; position: relative; }
 .philosophy::before, .philosophy::after { content: ""; position: absolute; top: 50%; width: 14vw; height: 1px; background: rgba(37,33,57,.14); }
@@ -266,13 +283,21 @@ footer p:last-child { justify-self: end; }
   .practiceSection { padding-top: 78px; padding-bottom: 78px; }
   .workspace { border-radius: 20px; }
   .library, .practicePanel { padding: 22px 18px; }
-  .exerciseList { grid-template-columns: 1fr; }
+  .practicePanel { order: 1; }
+  .library { order: 2; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 0; }
+  .filters { flex-wrap: nowrap; gap: 6px; margin: 20px -18px 18px; padding: 0 18px 2px; overflow-x: auto; scrollbar-width: none; }
+  .filters::-webkit-scrollbar, .exerciseList::-webkit-scrollbar { display: none; }
+  .filters button { flex: 0 0 auto; }
+  .exerciseList { display: flex; gap: 10px; margin: 0 -18px; padding: 0 18px 8px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-padding-inline: 18px; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .exerciseCard { flex: 0 0 min(78vw, 290px); min-height: 76px; grid-template-columns: 26px minmax(0,1fr); padding: 13px 12px; scroll-snap-align: start; }
+  .exerciseCard:hover { transform: none; }
+  .exerciseCard:active { transform: scale(.96); }
   .exerciseCard small { font-size: 11px; }
   .practiceHeader h2 { font-size: 46px; }
   .settingsPanel { grid-template-columns: 1fr; width: 100%; max-height: 68vh; padding: 14px; gap: 13px; }
   .settingsPanel .ragaSetting, .countInSetting, .tanpuraSetting { grid-column: 1; }
-  .notation { grid-template-columns: repeat(4, 1fr); min-height: 260px; padding: 28px 0; row-gap: 24px; }
-  .notationViewport { min-height: 300px; }
+  .notation { grid-template-columns: repeat(4, 1fr); min-height: 240px; padding: 20px 0; row-gap: 24px; }
+  .notationViewport { min-height: 280px; }
   .sthanaHeader { align-items: start; flex-direction: column; gap: 7px; }
   .sthanaMap { justify-content: flex-start; gap: 10px; padding-top: 12px; }
   .sthanaReadout { justify-content: flex-start; flex-wrap: wrap; gap: 5px 8px; }
@@ -288,8 +313,9 @@ footer p:last-child { justify-self: end; }
   .densePyramid .pyramidRow button span { width: clamp(17px, 5vw, 24px); font-size: clamp(11px, 3vw, 14px); }
   .densePyramid .pyramidRow button i { width: calc(100% + 1px); }
   .transport p { display: none; }
-  .transport { flex-wrap: wrap; }
-  .transportSpeed { flex-basis: 100%; justify-content: flex-end; margin: 2px 0 0; }
+  .transport { flex-wrap: wrap; row-gap: 10px; }
+  .transportSpeed { flex-basis: 100%; justify-content: flex-start; margin: 2px 0 0; padding-left: 58px; }
+  .transportSpeed button { width: 44px; height: 44px; }
   .philosophy { padding-top: 80px; padding-bottom: 80px; }
   .philosophyNotes { align-items: stretch; flex-direction: column; gap: 10px; }
   .philosophyNotes i { align-self: center; }

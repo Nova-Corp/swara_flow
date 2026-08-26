@@ -70,7 +70,7 @@ export function PracticePanel({ language, exercise, scale, ragas, tonic, speed, 
             <summary>
               <span className="settingsSummary">
                 <strong>{isTamil ? "பயிற்சி அமைப்புகள்" : "Practice settings"}</strong>
-                <small>{localizedScaleName} · {localizedInstrumentName} · ச {tonic.label} · {speedNames[speed - 1]}</small>
+                <small>{localizedScaleName} · {localizedInstrumentName} · {isTamil ? "ச" : "Sa"} {tonic.label} · {speedNames[speed - 1]}</small>
               </span>
               <span className="settingsChevron" aria-hidden="true" />
             </summary>

@@ -66,7 +66,7 @@ export function PracticeWorkspace({ language = "en" }: Readonly<{ language?: Lan
   }
 
   return (
-    <section ref={workspaceRef} className="workspace" aria-label={language === "ta" ? "பயிற்சி இடம்" : "Practice workspace"}>
+    <section id="practice-workspace" ref={workspaceRef} className="workspace" aria-label={language === "ta" ? "பயிற்சி இடம்" : "Practice workspace"}>
       <ExerciseLibrary language={language} exercises={filteredExercises} filter={filter} selectedId={exercise.id} onFilterChange={changeFilter} onSelect={selectExercise} />
       <PracticePanel
         language={language}
